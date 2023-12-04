@@ -1,104 +1,117 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    min-height: 100vh;
-    overflow: hidden;
-    background-color: azure;
-    transition: background 1s ease-in-out; /* Transición de color de fondo */
+	background-color: #aed7c995;
+    background-size: 10rem;
+	background-attachment: fixed;
+	padding:0px;
+	margin:0px;
 }
 
-header {
-    width: 120px;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    height: 100%;
-    overflow-y: auto;
+
+	
+.boton1 {
+    border: 1px solid #000000; /*anchura, estilo y color borde*/
+    background-color: #AAAAAA; /*color botón*/
+    color: #000000; /*color texto*/
+    text-decoration: none; /*decoración texto*/
+    font-family: 'Helvetica', sans-serif; /*tipografía texto*/
+    padding: 1px;
+    
 }
 
-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.boton2 {
+    border: 1px solid #000000; /*anchura, estilo y color borde*/
+    background-color: #AAAAAA; /*color botón*/
+    color: #000000; /*color texto*/
+    text-decoration: none; /*decoración texto*/
+    font-family: 'Helvetica', sans-serif; /*tipografía texto*/
+    padding: 1px;
+    width: 600px;
+    
 }
 
-.nav-link {
-    text-decoration: none;
-    color: white;
-    padding: 10px;
-    margin: 0 0 20px;
-    transition: color 0.3s ease;
-    cursor: pointer;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: left;
-    border-left: 4px solid transparent; /* Añade una línea a la izquierda que se activará al pasar el ratón */
+.tentacles{
+    border: 1px solid #000000; /*anchura, estilo y color borde*/
+    background-color: #AAAAAA; /*color botón*/
+    color: #000000; /*color texto*/
+    text-decoration: none; /*decoración texto*/
+    font-family: 'Helvetica', sans-serif; /*tipografía texto*/
+    padding: 1px;
 }
 
-.nav-link:hover {
-    color: #f39c12;
-    border-left-color: #f39c12; /* Cambia el color de la línea a la izquierda al pasar el ratón */
+
+
+
+
+
+
+.capa1{
+    border: 1px solid #AAAAAA; 
+    inset: #AAAAAA;
+    cursor:text;
+    height:150px;
+    overflow:auto;
+    width:600px; 
+    resize:horizontal;
+    background:#ffffff;
 }
 
-.main-content {
-    flex: 1;
-    padding: 20px;
-    color: #333;
-    text-align: center;
-    margin-left: 80px; /* Ancho del menú lateral */
-    transition: margin 0.5s ease; /* Transición al expandir/contraer el menú */
+.capa2{
+    border: 1px solid #AAAAAA; 
+    inset: #AAAAAA;
+    cursor:text;
+    height:40px;
+    overflow:auto;
+    width:600px; 
+    resize:none;
+    background:#ffffff;
 }
 
-.card {
-    width:90%;
-    margin-left: 80px;
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
+
+.capa3{
+    border: 1px solid #AAAAAA; 
+    inset: #AAAAAA;
+    cursor:text;
+    height:600px;
+    overflow:auto;
+    width:600px; 
+    resize:none;
+    background:#ffffff;
 }
 
-.card:hover {
-    transform: scale(1.05);
+.capa4{
+    border: 1px solid #AAAAAA; 
+    inset: #AAAAAA;
+    cursor:text;
+    height:400px;
+    overflow:auto;
+    width:600px; 
+    resize:none;
+    background:#ffffff;
 }
 
-.hero-section {
-    margin-top: 70px; /* Ajustar según el tamaño del encabezado */
-}
+/* diseño de elementos de ayuda */ 
 
-.hero-section h1 {
-    font-size: 3em;
-    margin-bottom: 0.5em;
-}
+[data-tooltip] {
+    position: relative; /* Относительное позиционирование */ 
+   }
+   [data-tooltip]::after {
+    content: attr(data-tooltip); /* Выводим текст */
+    position: absolute; /* Абсолютное позиционирование */
+    width: 300px; /* Ширина подсказки */
+    left: 0; top: 0; /* Положение подсказки */
+    background: #3989c9; /* Синий цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 0.5em; /* Поля вокруг текста */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Параметры тени */
+    pointer-events: none; /* Подсказка */
+    opacity: 0; /* Подсказка невидима */
+    transition: 1s; /* Время появления подсказки */
+   } 
+   [data-tooltip]:hover::after {
+    opacity: 1; /* Показываем подсказку */
+    top: 2em; /* Положение подсказки */
+   }
 
-.hero-section p {
-    font-size: 1.5em;
-    margin-top: 0;
-}
 
-.section-content {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
 
-.block {
-    width: 20%;
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.block:hover {
-    transform: scale(1.05);
-}
+ 

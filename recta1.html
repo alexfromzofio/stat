@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>PRUEBA_05 UPDATE PYSCRIPT LATEST</title>
+        <link rel="stylesheet" type="text/css" href="style2.css">
+        <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    </head>
+
+    <body>
+    <py-config>
+        packages = ["pandas", "matplotlib"]
+    </py-config>
+
+    <div id="archivo" data-tooltip="Se admiten archivos CSV con separación por coma. Primera fila, son los nombres de variables entre comillas. El resto de fila deben ser valores de variables ordenadas en columnas ">
+    <input type="file" id="myfile" name="myfile" class="boton2"></div> <!-- aquí se ubica el archivo -->
+    <br />
+    <div id="print_output"> <!-- aquí se imprime pyscript -->
+	    
+        <p>Contenido de archivo:</p>
+        <div class="capa1">
+            <div id="content"></div>  
+            <div id="content0"></div>
+            <div id="content1"></div>
+            <div id="content2"></div>
+            <div id="content3"></div>
+            <div id="content4"></div>
+            <div id="content5"></div>
+        </div>
+        <br />
+
+        <input type="number" class="tentacles" id="tentacles" name="tentacles" min="1" style="width: 30px">
+        <button py-click="media_aritm()" class="boton1" id="manual" data-tooltip="Elige entes la columna de la base de datos para el cálculo de media">MEDIA</button>
+        <button py-click="varianza_aritm()" class="boton1" id="manual2" data-tooltip="Elige entes la columna de la base de datos para el cálculo de varianza">VARIANZA</button>
+        
+        <p>Datos básicos:</p>
+
+        <div class="capa2">
+            <div id="dato"></div>  
+        </div>
+        <br />
+        <button py-click="graficadora()" class="boton1" id="manual2" data-tooltip="Abajo aparece representación de gráfica, elige variables que quieres comparar">RECTA REGRESION</button>
+        <input type="number" class="tentacles" id="tentacles_graf1" name="tentacles2" min="1" style="width: 30px">
+        <input type="number" class="tentacles" id="tentacles_graf2" name="tentacles3" min="1" style="width: 30px">
+        <button py-click="borrar()" class="boton1" id="manual2" data-tooltip="borrar todas las gráficas">BORRAR</button>
+
+        <p>Representación gráfica:</p>
+
+        <div class="capa3">    
+            <div id="mpl2"></div>
+        </div>
+        
+        
+        <p>Detalles de recta:</p>
+
+        <div class="capa4">    
+            
+            
+            
+            <div id="inforecta2"></div>
+            <div id="inforecta1"></div>
+            <div id="ecm"></div>
+            <div id="graficaerror" data-tooltip="El error sistemático o sesgo, aparece cuando se introduce un error en el diseño del trabajo, ya sea en la selección de los individuos, en la información recogida o en su análisis, de forma que se produzca una diferencia sistemática entre los grupos, no atribuible al factor que se está estudiando."></div>
+            
+        </div>
+
+    </div>
+
+
+    <py-script>
+import io
+import asyncio
+import pandas as pd
+import matplotlib.pyplot as plt
+from js import document, FileReader
+from pyodide.ffi import create_proxy
+
+################################### las funciones que se llaman aparte cada una tras cargar los datos pulsando botones
+def media_aritm():
+    val = int(document.getElementById("tentacles").value) -1;
+    manual_div = Element("dato") # indicamos donde lo vamos a representar
+    media = df.iloc[:,val].mean()
+    manual_div.element.innerText = "media de variable " + str(df.columns[int(val)])+ " es " + str(media.round(4));
+def varianza_aritm():
+    val = document.getElementById("tentacles").value
+    manual_div = Element("dato")
+    varianza = df.iloc[:,int(val)-1].var()
+    manual_div.element.innerText = "varianza de variable " + str(df.columns[int(val)-1])+ " es " + str(varianza.round(4));
+
+def graficadora():
+    manual_div = Element("mpl2")
+    manual_div2 = Element("inforecta1")
+    manual_div3 = Element("inforecta2")
+    manual_div.element.innerText = " ";
+    manual_div2.element.innerText = " ";
+    manual_div3.element.innerText = " ";
+    fig, ax = plt.subplots()
+    val1 = int(document.getElementById("tentacles_graf1").value) -1;
+    val2 = int(document.getElementById("tentacles_graf2").value) - 1;
+    var_x = list(df.iloc[:,val1])
+    var_y = list(df.iloc[:,val2])
+
+    # creamos dataframe particular a partir de uno dado y sacamos los datos de recta regresión
+    global dfnew;
+    dfnew = pd.DataFrame()
+    dfnew[str(df.columns[val1])] = var_x
+    dfnew[str(df.columns[val2])] = var_y
+    matr_cov = dfnew.cov()
+    global b0;
+    global b1;
+    b1 = matr_cov.iloc[0,1]/matr_cov.iloc[0,0]
+    b0 = dfnew.iloc[:,1].mean() - b1*(dfnew.iloc[:,0].mean())
+    
+    # creamos dos listas para representar la recta
+    var_x_recta = [min(var_x), max(var_x)]
+    var_y_recta = [min(var_x)*b1+b0, max(var_x)*b1+b0]
+
+    manual_div2.element.innerText = "COV " + str(matr_cov.iloc[0,1].round(4));
+    manual_div3.element.innerText = "RECTA: " + "Y = " + str(b1.round(4)) + "·X" + " + " + str(b0.round(4))
+
+    plt.plot(var_x, var_y, marker='.', linestyle='', color='blue', markersize = 5, label=' ')
+    plt.plot(var_x_recta, var_y_recta, linewidth=1, color ="red")
+
+    plt.xlabel(str(df.columns[val1]))
+    plt.ylabel(str(df.columns[val2]))
+    plt.title(' ')
+    plt.legend(loc='lower right')
+
+    fig.set_size_inches(5.5, 5.5)
+    display(fig, target="mpl2")
+    
+    graficaerror(dfnew, b0, b1)
+
+def graficaerror(dataframe, b0, b1):
+    manual_div = Element("graficaerror")
+    manual_div.element.innerText = " ";
+    manual_div2= Element("ecm")
+    manual_div2.element.innerText = " ";
+    fig, ax = plt.subplots()
+
+    var_x = list(dataframe.iloc[:,0])
+    var_y = list(dataframe.iloc[:,1])
+
+    # creamos dos listas para representar la recta
+    var_x_recta = [min(var_x), max(var_x)]
+    var_y_recta = [0, 0]
+    
+    # conjunto de errores
+    global error;
+    error = [];
+    for i in range(len(var_x)):
+        e =  var_y[i]- var_x[i]*b1-b0;
+        error.append(e)
+    
+    ecm = 0;
+    for e in error:
+        ecm = ecm + e**2
+    ecm = ecm/len(error)
+    manual_div2.element.innerText = "ECM:  " + str(ecm.round(4))
+
+    # esperanza de error para cada xi
+    esp_error = [];
+    numeros_unicos = list(set(var_x))
+    for i in range(len(numeros_unicos)):
+        e = 0
+        k = 0;
+        for j in range(len(var_x)):
+            if var_x[j] == numeros_unicos[i]:
+                e = e + error[j]
+                k = k +1;
+        esp_error.append(e/k)
+
+    # varianza de error para cada xi (Homoscedasticidad) la varianza debe ser constante
+
+    var_error_indice = [];
+    var_error_valor = []
+    for x in numeros_unicos:
+        xi = [indice for indice, dato in enumerate(var_x) if dato == x]
+        vi = []
+        for y in xi:
+            vi.append(error[y])
+        var_error_indice.append(vi)
+    
+    for i in range(len(var_error_indice)):
+        df_new = pd.DataFrame(var_error_indice[i])
+        var_error_valor.append((df_new.iloc[:,0]).var())
+    
+    
+    
+
+    plt.plot(var_x, error, marker='.', linestyle='', color='grey', markersize = 3, label='error')
+    plt.plot(var_x_recta, var_y_recta, linewidth=1, color ="red")
+    plt.plot(numeros_unicos, esp_error, marker='.', linestyle='', color='green', markersize = 5, label='esperanza del error')
+    plt.plot(numeros_unicos, var_error_valor, marker='.', linestyle='', color='blue', markersize = 5, label='varianza del error')
+
+
+    plt.xlabel(str(df.columns[0]))
+    plt.ylabel("error")
+    plt.title(' ')
+    plt.legend(loc='lower right')
+
+    fig.set_size_inches(5.5, 3)
+    display(fig, target="graficaerror")
+
+
+
+# borrar todas las gráficas
+def borrar():
+    manual_div = Element("mpl2")
+    manual_div.element.innerText = " "; # limpiar cada vez despues de representar nueva gráfica
+    manual_div2 = Element("inforecta1")
+    manual_div2.element.innerText = " ";
+    manual_div3 = Element("ecm")
+    manual_div3.element.innerText = " ";
+    manual_div4 = Element("graficaerror")
+    manual_div4.element.innerText = " ";
+    manual_div5 = Element("inforecta2")
+    manual_div5.element.innerText = " ";
+
+async def process_file(event):
+    fileList = event.target.files.to_py()
+    
+
+
+
+    # ////////////////////////////////creación de variables básicas y representación simple de datos ////////////////////////////////
+    def representar(dataframe):
+        nombres_1 = dataframe.columns.values
+        nombres_2 = str(nombres_1)
+        document.getElementById("content").innerHTML = nombres_2 # también puede usarse innerHTML o innerText
+
+        global df; # ahora de una vez se guarda esta variable global para poder usarla en todo el script
+        df = dataframe;
+        global tamanio;
+        tamanio = len(dataframe)
+        minimal = min(tamanio,4) # para decidir lineas máximo a representar 
+        for x in range(minimal):
+            document.getElementById("content" + str(x)).innerHTML = list(dataframe.iloc[x])
+        document.getElementById("content5").innerHTML = "... ... tamaño total: " + str(tamanio)
+    
+    for f in fileList:
+        data = await f.text()
+        # read_csv recibe como parámetro archivo de texto pero en este caso le pasamos simple contenido del archivo
+        # para que read_csv pueda recibir este formato hay que añadir io.stringIO función creada para esto
+        df = pd.read_csv(io.StringIO(data)) 
+
+        # solo representamos los datos tras cargar el archivo y también definimos variables globales
+        representar(df)
+
+
+
+def main():
+    # Create a Python proxy for the callback function
+    # process_file() is your function to process events from FileReader
+    file_event = create_proxy(process_file)
+
+    # Set the listener to the callback
+    e = document.getElementById("myfile")
+    e.addEventListener("change", file_event, False)
+
+main()
+    </py-script>
+    </body>
+</html>

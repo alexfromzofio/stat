@@ -109,8 +109,9 @@ nav {
     border-radius: 8px;
     transition: transform 0.3s ease;
     cursor: pointer;
+    background-color: rgb(245, 245, 245)
 }
 
 .block:hover {
-    transform: scale(1.05);
+    transform: scale(1.2);
 }

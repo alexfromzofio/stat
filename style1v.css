@@ -91,10 +91,10 @@ nav {
     cursor: pointer;
 }
 
-.card:hover {
+/* .card:hover {
     transform: scale(1.05);
 }
-
+*/
 .section-content {
     display: flex;
     justify-content:space-around;

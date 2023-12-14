@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>PRUEBA_05 UPDATE PYSCRIPT LATEST</title>
+        <title>recta de regresión: UPDATE PYSCRIPT LATEST</title>
         <link rel="stylesheet" type="text/css" href="style2.css">
         <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
         <script defer src="https://pyscript.net/latest/pyscript.js"></script>
@@ -11,14 +11,16 @@
 
     <body>
     <py-config>
-        packages = ["pandas", "matplotlib"]
+        packages = ["pandas", "matplotlib"] 
     </py-config>
 
-    <div id="archivo" data-tooltip="Se admiten archivos CSV con separación por coma. Primera fila, son los nombres de variables entre comillas. El resto de fila deben ser valores de variables ordenadas en columnas ">
+    <div id="archivo" data-tooltip="Se admiten archivos CSV con separación por coma. Primera fila, son los nombres de variables entre comillas. 
+    El resto de fila deben ser valores de variables ordenadas en columnas ">
     <input type="file" id="myfile" name="myfile" class="boton2"></div> <!-- aquí se ubica el archivo -->
     <br />
     <div id="print_output"> <!-- aquí se imprime pyscript -->
 	    
+        <!-- aquí se imprimen primeras líneas de archivo -->
         <p>Contenido de archivo:</p>
         <div class="capa1">
             <div id="content"></div>  
@@ -31,16 +33,21 @@
         </div>
         <br />
 
+        <!-- botones de cálculos principales (media y varianza) -->
         <input type="number" class="tentacles" id="tentacles" name="tentacles" min="1" style="width: 30px">
         <button py-click="media_aritm()" class="boton1" id="manual" data-tooltip="Elige entes la columna de la base de datos para el cálculo de media">MEDIA</button>
         <button py-click="varianza_aritm()" class="boton1" id="manual2" data-tooltip="Elige entes la columna de la base de datos para el cálculo de varianza">VARIANZA</button>
-        
-        <p>Datos básicos:</p>
+        <!-- usamos id para vincular este boton con script -->
 
+
+        <!-- en este div se imprimen los cálculos principales (media y varianza) -->
+        <p>Datos básicos:</p>
         <div class="capa2">
             <div id="dato"></div>  
         </div>
+
         <br />
+        <!-- botones para cálculo de la recta de regresión -->
         <button py-click="graficadora()" class="boton1" id="manual2" data-tooltip="Abajo aparece representación de gráfica, elige variables que quieres comparar">RECTA REGRESION</button>
         <input type="number" class="tentacles" id="tentacles_graf1" name="tentacles2" min="1" style="width: 30px">
         <input type="number" class="tentacles" id="tentacles_graf2" name="tentacles3" min="1" style="width: 30px">
@@ -48,28 +55,26 @@
 
         <p>Representación gráfica:</p>
 
+        <!-- aquí se imprime la recta -->
         <div class="capa3">    
             <div id="mpl2"></div>
         </div>
         
-        
+        <!-- detalles de la recta incluyendo la gráfica del error -->
         <p>Detalles de recta:</p>
-
         <div class="capa4">    
-            
-            
-            
             <div id="inforecta2"></div>
             <div id="inforecta1"></div>
             <div id="ecm"></div>
             <div id="graficaerror" data-tooltip="El error sistemático o sesgo, aparece cuando se introduce un error en el diseño del trabajo, ya sea en la selección de los individuos, en la información recogida o en su análisis, de forma que se produzca una diferencia sistemática entre los grupos, no atribuible al factor que se está estudiando."></div>
-            
         </div>
 
     </div>
 
 
     <py-script>
+
+# importamos librerias 
 import io
 import asyncio
 import pandas as pd
@@ -79,7 +84,7 @@ from pyodide.ffi import create_proxy
 
 ################################### las funciones que se llaman aparte cada una tras cargar los datos pulsando botones
 def media_aritm():
-    val = int(document.getElementById("tentacles").value) -1;
+    val = int(document.getElementById("tentacles").value) -1; # restamos unidad para interpretarlo según normativas python
     manual_div = Element("dato") # indicamos donde lo vamos a representar
     media = df.iloc[:,val].mean()
     manual_div.element.innerText = "media de variable " + str(df.columns[int(val)])+ " es " + str(media.round(4));
@@ -219,38 +224,51 @@ def borrar():
     manual_div5 = Element("inforecta2")
     manual_div5.element.innerText = " ";
 
+
+
+
+
+
+### ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+### ///////////////////////////// el código de abajo carga el archivo desde boton (1), define variables a partir de este (3),
+### además representa parte de archivo en div content y define variables globales (4),
+### el resto de código (superior) funciona ya correctamente con estas variables 
+
+###  2.  procesado de archivo
 async def process_file(event):
     fileList = event.target.files.to_py()
-    
 
-
-
-    # ////////////////////////////////creación de variables básicas y representación simple de datos ////////////////////////////////
+    ###  4. esta función se ejecuta automáticamente al cargar el archivo (en boocle de abajo)
+    ### solo representa por pantalla rsumen del archivo
+    ### y define variables globales para el resto del código
     def representar(dataframe):
         nombres_1 = dataframe.columns.values
         nombres_2 = str(nombres_1)
         document.getElementById("content").innerHTML = nombres_2 # también puede usarse innerHTML o innerText
 
-        global df; # ahora de una vez se guarda esta variable global para poder usarla en todo el script
+        # ahora de una vez se guarda esta variable global para poder usarla en todo el script
+        global df; 
         df = dataframe;
         global tamanio;
         tamanio = len(dataframe)
         minimal = min(tamanio,4) # para decidir lineas máximo a representar 
+        # se imrime en ventana principal (capa 1)
         for x in range(minimal):
             document.getElementById("content" + str(x)).innerHTML = list(dataframe.iloc[x])
         document.getElementById("content5").innerHTML = "... ... tamaño total: " + str(tamanio)
-    
+
+    ###  3. definimos variable df (no global de momento) a partir del texto 
+    ### y llamamos función para representar (que también define variables flobales)
     for f in fileList:
         data = await f.text()
         # read_csv recibe como parámetro archivo de texto pero en este caso le pasamos simple contenido del archivo
         # para que read_csv pueda recibir este formato hay que añadir io.stringIO función creada para esto
-        df = pd.read_csv(io.StringIO(data)) 
+        df_0 = pd.read_csv(io.StringIO(data)) 
 
-        # solo representamos los datos tras cargar el archivo y también definimos variables globales
-        representar(df)
+        # representar parte de archivo en un div
+        representar(df_0)
 
-
-
+###  1. inicia aquí. Se carga desde el botón "myfile"
 def main():
     # Create a Python proxy for the callback function
     # process_file() is your function to process events from FileReader
@@ -259,8 +277,8 @@ def main():
     # Set the listener to the callback
     e = document.getElementById("myfile")
     e.addEventListener("change", file_event, False)
-
 main()
+
     </py-script>
     </body>
 </html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>contraste de normalidad: UPDATE PYSCRIPT LATEST</title>
+        <link rel="stylesheet" type="text/css" href="style2.css">
+        <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    </head>
+
+    <body>
+    <py-config>
+        packages = ["pandas", "matplotlib"] 
+    </py-config>
+
+    <div id="archivo" data-tooltip="Se admiten archivos CSV con separación por coma. Primera fila, son los nombres de variables entre comillas. 
+    El resto de fila deben ser valores de variables ordenadas en columnas ">
+    <input type="file" id="myfile" name="myfile" class="boton2"></div> <!-- aquí se ubica el archivo -->
+    <br />
+    <div id="print_output"> <!-- aquí se imprime pyscript -->
+	    
+        <!-- aquí se imprimen primeras líneas de archivo -->
+        <p>Contenido de archivo:</p>
+        <div class="capa1">
+            <div id="content"></div>  
+            <div id="content0"></div>
+            <div id="content1"></div>
+            <div id="content2"></div>
+            <div id="content3"></div>
+            <div id="content4"></div>
+            <div id="content5"></div>
+        </div>
+        <br />
+
+        <!-- botones de cálculos principales (media y varianza) -->
+        <input type="number" class="tentacles" id="tentacles" name="tentacles" min="1" style="width: 30px">
+        <button py-click="media_aritm()" class="boton1" id="manual" data-tooltip="Elige entes la columna de la base de datos para el cálculo de media">MEDIA</button>
+        <button py-click="varianza_aritm()" class="boton1" id="manual2" data-tooltip="Elige columna para el cálculo de varianza">VARIANZA</button>
+        <button py-click="min_max()" class="boton1" id="manual3" data-tooltip="Elige columna para el cálculo de mínimo y máximo">MIN&MAX</button>
+        
+        <!-- usamos id para vincular este boton con script -->
+
+
+        <!-- en este div se imprimen los cálculos principales (media y varianza) -->
+        <p>Datos básicos:</p>
+        <div class="capa2">
+            <div id="dato1"></div>  
+            <div id="dato2"></div> 
+            <div id="dato3"></div> 
+        </div>
+
+        <br />
+        <!-- botones para cálculo de la recta de regresión -->
+        <input type="number" class="tentacles" id="tentacles_graf1" name="tentacles2" min="1" style="width: 30px">
+
+        
+        <button py-click="frecuencia()" class="boton1" id="manual2" data-tooltip="Abajo aparece representación de gráfica de puntos">FRECUENCIA ABSOLUTA</button>
+        
+        <button py-click="borrar()" class="boton1" id="manual2" data-tooltip="borrar todas las gráficas">BORRAR</button></br>
+        <input type="number" class="tentacles" id="tentacles_graf2" name="tentacles3" min="1" style="width: 30px"> introduzca número de intervalos re representación
+        (1 corresponde a represenación por defecto)
+
+        <p>Representación gráfica:</p>
+
+        <!-- aquí se imprime la recta -->
+        <div class="capa3">    
+            <div id="mpl2"></div>
+        </div>
+        
+        <!-- detalles de la recta incluyendo la gráfica del error -->
+        <p>Detalles de recta:</p>
+        <div class="capa4">    
+            <div id="inforecta2"></div>
+            <div id="inforecta1"></div>
+            <div id="ecm"></div>
+            <div id="graficaerror" data-tooltip="El error sistemático o sesgo, aparece cuando se introduce un error en el diseño del trabajo, ya sea en la selección de los individuos, en la información recogida o en su análisis, de forma que se produzca una diferencia sistemática entre los grupos, no atribuible al factor que se está estudiando."></div>
+        </div>
+
+    </div>
+
+
+    <py-script>
+# importamos librerias 
+import io
+import asyncio
+import pandas as pd
+import matplotlib.pyplot as plt
+from js import document, FileReader
+from pyodide.ffi import create_proxy
+
+################################### las funciones que se llaman aparte cada una tras cargar los datos pulsando botones
+def media_aritm():
+    val = int(document.getElementById("tentacles").value) -1; # restamos unidad para interpretarlo según normativas python
+    manual_div = Element("dato1") # indicamos donde lo vamos a representar
+    media = df.iloc[:,val].mean()
+    manual_div.element.innerText = "media de variable " + str(df.columns[int(val)])+ " es " + str(media.round(4));
+def varianza_aritm():
+    val = document.getElementById("tentacles").value
+    manual_div = Element("dato2")
+    varianza = df.iloc[:,int(val)-1].var()
+    manual_div.element.innerText = "varianza de variable " + str(df.columns[int(val)-1])+ " es " + str(varianza.round(4));
+
+def min_max():
+    val = document.getElementById("tentacles").value
+    manual_div = Element("dato3")
+    minimal = min(df.iloc[:,int(val)-1])
+    maximal = max(df.iloc[:,int(val)-1])
+    manual_div.element.innerText = "valor mínimo y máximo de variable " + str(df.columns[int(val)-1])+ " es " + str(minimal) + " y " + str(maximal);
+
+
+def freq_abs(x): 
+    freqs = [x.count(value) for value in set(x)] 
+    var_x_set = [value for value in set(x)] 
+    return var_x_set, freqs 
+    
+def frecuencia():
+    intervalos = int(document.getElementById("tentacles_graf2").value) -1; 
+    manual_div = Element("mpl2")
+    manual_div2 = Element("inforecta1")
+    manual_div3 = Element("inforecta2")
+    ### los vaciados "" abajo se hacen para limpiar contenido cada vez que se llama nueva gráfica
+    manual_div.element.innerText = " ";
+    manual_div2.element.innerText = " ";
+    manual_div3.element.innerText = " ";
+    fig, ax = plt.subplots()
+    
+    val = int(document.getElementById("tentacles_graf1").value) -1;    
+    var_x = list(df.iloc[:,val])
+    
+    if intervalos == 0:
+        
+        var_x_s = freq_abs(var_x)[0]
+        var_frec = freq_abs(var_x)[1]
+
+
+    # hay que partir el intervalo en subintervalos y recalcular la frecuencia de cada elemento
+    else:
+        # extremos de intervalo general
+        t0 = min(var_x)
+        tn = max(var_x)
+        l_subint = (tn - t0)/intervalos
+        # lista ordenada
+        var_x_sort = sorted(var_x)
+        var_x_represent = [l_subint/2]
+        frec_x_sort = [0];
+        t = 0;
+        for k in range(len(var_x_sort)):
+            if var_x_sort[k] <= t0 + l_subint:
+                
+
+                frec_x_sort[t] = t + 1;
+
+
+
+            else:
+                t = t +1;
+                t0 = t0+ l_subint
+                frec_x_sort.append(0)
+
+                var_x_represent.append(t0)
+
+            var_x_s = var_x_represent
+            var_frec = frec_x_sort
+
+    ax.bar(x = var_x_s, height = var_frec, width=(max(var_x_s)-min(var_x_s))/len(var_x_s))
+    # creamos dataframe particular a partir de uno dado y sacamos los datos de recta regresión
+
+    manual_div2.element.innerText = "COV ";
+    manual_div3.element.innerText = "RECTA:";
+
+
+
+
+
+
+    #plt.plot(var_x_s, var_frec, marker='.', linestyle='', color='blue', markersize = 5, label=' ')
+
+
+    plt.xlabel(str(df.columns[val]))
+    plt.ylabel(str("frecuencia"))
+    plt.title(' ')
+    plt.legend(["Frecuencia"])
+
+    fig.set_size_inches(5.5, 5.5)
+    display(fig, target="mpl2")    
+
+
+# borrar todas las gráficas
+def borrar():
+    manual_div = Element("mpl2")
+    manual_div.element.innerText = " "; # limpiar cada vez despues de representar nueva gráfica
+    manual_div2 = Element("inforecta1")
+    manual_div2.element.innerText = " ";
+    manual_div3 = Element("ecm")
+    manual_div3.element.innerText = " ";
+    manual_div4 = Element("graficaerror")
+    manual_div4.element.innerText = " ";
+    manual_div5 = Element("inforecta2")
+    manual_div5.element.innerText = " ";
+
+
+
+
+
+
+### ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+### ///////////////////////////// el código de abajo carga el archivo desde boton (1), define variables a partir de este (3),
+### además representa parte de archivo en div content y define variables globales (4),
+### el resto de código (superior) funciona ya correctamente con estas variables 
+
+###  2.  procesado de archivo
+async def process_file(event):
+    fileList = event.target.files.to_py()
+
+    ###  4. esta función se ejecuta automáticamente al cargar el archivo (en boocle de abajo)
+    ### solo representa por pantalla rsumen del archivo
+    ### y define variables globales para el resto del código
+    def representar(dataframe):
+        nombres_1 = dataframe.columns.values
+        nombres_2 = str(nombres_1)
+        document.getElementById("content").innerHTML = nombres_2 # también puede usarse innerHTML o innerText
+
+        # ahora de una vez se guarda esta variable global para poder usarla en todo el script
+        global df; 
+        df = dataframe;
+        global tamanio;
+        tamanio = len(dataframe)
+        minimal = min(tamanio,4) # para decidir lineas máximo a representar 
+        # se imrime en ventana principal (capa 1)
+        for x in range(minimal):
+            document.getElementById("content" + str(x)).innerHTML = list(dataframe.iloc[x])
+        document.getElementById("content5").innerHTML = "... ... tamaño total: " + str(tamanio)
+
+    ###  3. definimos variable df (no global de momento) a partir del texto 
+    ### y llamamos función para representar (que también define variables flobales)
+    for f in fileList:
+        data = await f.text()
+        # read_csv recibe como parámetro archivo de texto pero en este caso le pasamos simple contenido del archivo
+        # para que read_csv pueda recibir este formato hay que añadir io.stringIO función creada para esto
+        df_0 = pd.read_csv(io.StringIO(data)) 
+
+        # representar parte de archivo en un div
+        representar(df_0)
+
+###  1. inicia aquí. Se carga desde el botón "myfile"
+def main():
+    # Create a Python proxy for the callback function
+    # process_file() is your function to process events from FileReader
+    file_event = create_proxy(process_file)
+
+    # Set the listener to the callback
+    e = document.getElementById("myfile")
+    e.addEventListener("change", file_event, False)
+main()
+
+    </py-script>
+    </body>
+</html>

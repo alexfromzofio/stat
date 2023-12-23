@@ -114,3 +114,41 @@ nav {
 .block:hover {
     transform: scale(1.05);
 }
+
+.block2 {
+    width: 90%;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    background-color: rgb(245, 245, 245)
+}
+
+.block2:hover {
+    transform: scale(1.05);
+}
+
+.block2 a {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+  }
+  
+.block2 a:link {
+    color: #3b5320;
+  }
+  
+.block2 a:visited {
+    color: #3b5320;
+  }
+  
+
+.block a:hover {
+    border-bottom: 1px solid;
+  }
+  
+.block2 a:active {
+    color: #cdfeaa;
+  }

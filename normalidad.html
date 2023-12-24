@@ -53,9 +53,7 @@
         <!-- botones para cálculo de gráfica de barras -->
         <input type="number" class="tentacles" id="tentacles_graf1" name="tentacles2" min="1" style="width: 30px" value = "1">
 
-        
         <button py-click="frecuencia()" class="boton1" id="manual2" data-tooltip="Abajo aparece representación de gráfica de puntos">FRECUENCIA</button>
-
 
         <!-- checkbox para decidir hacer frecuencia relativa -->
         <input type="checkbox" id ="frec_abs_rel" name="frec_abs_rel"> Frecuencia relativa 
@@ -67,12 +65,12 @@
 
         <p>Representación gráfica:</p>
 
-        <!-- aquí se imprime la recta -->
+        <!-- aquí se imprime la histograma -->
         <div class="capa3">    
             <div id="mpl2"></div>
         </div>
         
-        <!-- detalles de la recta incluyendo la gráfica del error -->
+        <!-- detalles de la histograma -->
         <p>Detalles de recta:</p>
         <div class="capa4">    
             <div id="inforecta2"></div>
@@ -83,13 +81,14 @@
 
     </div>
 
-
     <py-script>
 # importamos librerias 
 import io
 import asyncio
 import pandas as pd
 import matplotlib.pyplot as plt
+
+import math
 
 import numpy as np 
 
@@ -108,7 +107,6 @@ def varianza_aritm():
     manual_div = Element("dato2")
     varianza = df.iloc[:,int(val)-1].var()
     manual_div.element.innerText = "varianza de variable " + str(df.columns[int(val)-1])+ " es " + str(varianza.round(4));
-
 def min_max():
     val = document.getElementById("tentacles").value
     manual_div = Element("dato3")
@@ -117,11 +115,11 @@ def min_max():
     manual_div.element.innerText = "valor mínimo y máximo de variable " + str(df.columns[int(val)-1])+ " es " + str(minimal) + " y " + str(maximal);
 
 
-
-### cálculo de frecuencias
+### cálculo de histograma
 def frecuencia():
     # en cuantos intervalos dividir la muestra
     intervalos = int(document.getElementById("tentacles_graf2").value); 
+
     manual_div = Element("mpl2")
     manual_div2 = Element("inforecta1")
     manual_div3 = Element("inforecta2")
@@ -133,97 +131,59 @@ def frecuencia():
     val = int(document.getElementById("tentacles_graf1").value) -1;    
     var_x = list(df.iloc[:,val])
 
+    conj = set(var_x)
+    len_conj = len(conj)
+
+
+
+
+
+
     # por defecto si intervalos = 0 se refiere a def freq_abs
     if intervalos == 0:
-        x_sorted = sorted(var_x) # lista ordenada
-        x_set_sorted = sorted(list(set(var_x))) # conjunto (sin repiticiones) ordenado # paso a lista porque "set no lo es"
-        
-        freq_s = [x_sorted.count(valor) for valor in x_set_sorted] # frecuencia correspondiente al conjunto x_set_sorted ordenado
-
-
-
-
-    # en el caso si intervalo no es nulo se hace cálculo por intervalo. 
-    # hay que partir el intervalo en subintervalos y recalcular la frecuencia de cada elemento
-    else:
-        x_sorted = sorted(var_x) # lista ordenada
-        x_set_sorted = sorted(list(set(var_x))) # conjunto (sin repiticiones) ordenado # paso a lista porque "set no lo es"
-        
-        freq_s = [x_sorted.count(valor) for valor in x_set_sorted] # frecuencia correspondiente al conjunto x_set_sorted ordenado
-        
-        # # para cálculos en general
-        min_x = min(x_set_sorted)
-        max_x = max(x_set_sorted)
-        dist = max_x-min_x # rango de la muestra
-        dist_i = dist/intervalos
-        
-        # # representantes y máximos de intervalos
-        t0 = dist_i/2
-        t0 = t0+min_x
-        representantes = [t0] # lista de representantes
-        d = dist_i +min_x 
-        maximos = [d]# lista de máximos de subintervalos
-        for i in range(intervalos-1):
-            t0 = t0+dist_i
-            d = d+dist_i
-            representantes.append(t0)
-            maximos.append(d)
-        
-        # frecuencias de subintervalos
-        frec_subint = [] # frecuencia por subintervalos. Longitud siempre va a coincidir con cantidad de subintervalos.
-        j = 0; # contador renovable para acceso a lista de conjunto y frecuencias
-        for k in range(intervalos):
-            
-            f = 0;
-            while j < len(x_set_sorted) and (x_set_sorted[j] <= maximos[k]):
-                f = f + freq_s[j]
-                j = j +1
-        
-            frec_subint.append(f)
-
-
-        
-        x_set_sorted = representantes
-        freq_s = frec_subint
-
-
+        intervalos = len_conj
        
     # control de checkbox para hacer frecuencia relativa
-
     ch = document.getElementById("frec_abs_rel").checked; 
     if ch:
-        for k in range(len(x_set_sorted)):
-            freq_s[k] = freq_s[k]/len(var_x)
-    
-    # para estilizar un poco la gráfica
-    # en el caso que el intervalo es único la frecuencia corresponde a toda la muestra (caso trivial)
-    if intervalos == 1:
-        w_bar = max_x-min_x;
+        d = True
     else:
-        w_bar = np.min(np.diff(x_set_sorted))
-    # width=(max(x_set_sorted)-min(x_set_sorted))/len(x_set_sorted)
+        d = False
 
-
+    ############# graficas 
     fig, ax = plt.subplots()
 
-    ax.bar(x = x_set_sorted, height = freq_s, width=w_bar, ec = "k")
-    # creamos dataframe particular a partir de uno dado y sacamos los datos de recta regresión
+    #d_puntos = (max_x-min_x)/100
+    #dominio = list(np.arange(min_x,max_x,d_puntos))
+    #norm = []
+    #for x_n in x_set_sorted:
+    #    y_n = y_1*math.exp(-y_2*math.pow(x_n-media,2))
+    #    norm.append(y_n)
+    #plt.plot(x_set_sorted, norm, marker='.', linestyle='', color='red', markersize = 5, label='densidad normal asociada') 
+    
 
-    manual_div2.element.innerText = "cov";
-    manual_div3.element.innerText = "RECTA:";
+    
+    
+    # n, bins, patches = ax.hist(var_x, intervalos, density=d)
+    n, bins, patches = ax.hist(var_x, intervalos, density=d)
 
 
+    ############ gráfica asociada de la función normal.
+    media = (np.array(var_x)).mean()
+    varianza = (np.array(var_x)).var() 
+    y = (1/(np.sqrt(2*np.pi*varianza)))*np.exp((-0.5*(bins-media)**2)/varianza)
+    ax.plot(bins, y, '--')
+    
+    
+    #manual_div2.element.innerText = "conjunto ";
+    #manual_div3.element.innerText = "frecuencias :";
 
-
-
-
-    #plt.plot(var_x_s, var_frec, marker='.', linestyle='', color='blue', markersize = 5, label=' ')
 
 
     plt.xlabel(str(df.columns[val]))
     plt.ylabel(str("frecuencia"))
     plt.title(' ')
-    plt.legend(["Frecuencia"])
+    plt.legend(["normalidad", "Frecuencia"])
 
     fig.set_size_inches(5.5, 5.5)
     display(fig, target="mpl2")    

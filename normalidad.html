@@ -10,7 +10,7 @@
 
     <body>
     <py-config>
-        packages = ["pandas", "matplotlib"] 
+        packages = ["pandas", "matplotlib", "statsmodels"] 
     </py-config>
 
     <div id="archivo" data-tooltip="Se admiten archivos CSV con separación por coma. Primera fila, son los nombres de variables entre comillas. 
@@ -53,7 +53,7 @@
         <!-- botones para cálculo de gráfica de barras -->
         <input type="number" class="tentacles" id="tentacles_graf1" name="tentacles2" min="1" style="width: 30px" value = "1">
 
-        <button py-click="frecuencia()" class="boton1" id="manual2" data-tooltip="Abajo aparece representación de gráfica de puntos">FRECUENCIA</button>
+        <button py-click="frecuencia()" class="boton1" id="manual2" data-tooltip="Abajo aparece histograma de datos">FRECUENCIA</button>
 
         <!-- checkbox para decidir hacer frecuencia relativa -->
         <input type="checkbox" id ="frec_abs_rel" name="frec_abs_rel"> Frecuencia relativa 
@@ -77,8 +77,8 @@
             <div id="info_hist_2"></div>
 
             <!-- estos dos de abajo aun no estan con nada -->
-            <div id="ecm"></div>
-            <div id="graficaerror" data-tooltip="El error sistemático o sesgo, aparece cuando se introduce un error en el diseño del trabajo, ya sea en la selección de los individuos, en la información recogida o en su análisis, de forma que se produzca una diferencia sistemática entre los grupos, no atribuible al factor que se está estudiando."></div>
+            <div id="qq_test"></div>
+            <div id="graficaerror" data-tooltip="qqtest para comprobar normalidad"></div>
         </div>
 
     </div>
@@ -91,6 +91,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 import numpy as np 
+from statsmodels.graphics.gofplots import qqplot # para qq test
+import statsmodels.api as sm
+
 
 
 from js import document, FileReader
@@ -123,10 +126,12 @@ def frecuencia():
     manual_div = Element("mpl2") # gráficas
     manual_div2 = Element("info_hist_1")
     manual_div3 = Element("info_hist_2")
+    manual_div4 = Element("qq_test")
     ### los vaciados "" abajo se hacen para limpiar contenido cada vez que se llama nueva gráfica
     manual_div.element.innerText = " ";
     manual_div2.element.innerText = " ";
     manual_div3.element.innerText = " ";
+    manual_div4.element.innerText = " ";
     
     val = int(document.getElementById("tentacles_graf1").value) -1;    
     var_x = list(df.iloc[:,val])
@@ -139,10 +144,6 @@ def frecuencia():
 
 
     len_conj = len(conj)
-
-
-
-
 
 
     # por defecto si intervalos = 0 se refiere a def freq_abs
@@ -159,13 +160,6 @@ def frecuencia():
     ############# graficas 
     fig, ax = plt.subplots()
 
-    #d_puntos = (max_x-min_x)/100
-    #dominio = list(np.arange(min_x,max_x,d_puntos))
-    #norm = []
-    #for x_n in x_set_sorted:
-    #    y_n = y_1*math.exp(-y_2*math.pow(x_n-media,2))
-    #    norm.append(y_n)
-    #plt.plot(x_set_sorted, norm, marker='.', linestyle='', color='red', markersize = 5, label='densidad normal asociada') 
     n, bins, patches = ax.hist(var_x, intervalos, density=d)
 
     ############ gráfica asociada de la función normal.
@@ -175,6 +169,10 @@ def frecuencia():
     ax.plot(bins, y, '--')
     
     x_sorted=()
+    
+
+
+
     
     manual_div2.element.innerText = "conjunto ordenado", x_set_sorted;
     manual_div3.element.innerText = "frecuencia absoluta correspondiente", freq_s;
@@ -189,6 +187,15 @@ def frecuencia():
     fig.set_size_inches(5.5, 5.5)
     display(fig, target="mpl2")    
 
+    ############# graficas de qq test
+    
+    #qq = qqplot(np.array(var_x) , line='s')
+    #display(qq, target="qq_test")
+    figure = sm.ProbPlot(np.array(var_x), fit=True)
+    qq = figure.qqplot(marker='o', markerfacecolor='blue', markeredgecolor='blue', alpha=0.6)
+    qq.set_size_inches(5.5, 5.5)
+    sm.qqline(qq.axes[0], line='45', fmt='k--')
+    display(qq, target="qq_test")
 
 # borrar todas las gráficas
 def borrar():
@@ -200,7 +207,7 @@ def borrar():
     manual_div3.element.innerText = " ";
     manual_div4 = Element("graficaerror")
     manual_div4.element.innerText = " ";
-    manual_div5 = Element("ecm")
+    manual_div5 = Element("qq_test")
     manual_div5.element.innerText = " ";
 
 

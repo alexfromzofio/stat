@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Ruta mas corta (proyecto)</title>
+        <link rel="stylesheet" type="text/css" href="style2.css">
+        <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    </head>
+
+    <body>
+    <py-config>
+        packages = ["pandas", "matplotlib", "statsmodels"] 
+    </py-config>
+
+    <div id="archivo" data-tooltip="Se admiten archivos CSV con separación por coma. Primera fila, son los nombres de variables entre comillas. 
+    El resto de fila deben ser valores de variables ordenadas en columnas ">
+    <input type="file" id="myfile" name="myfile" class="boton2"></div> <!-- aquí se ubica el archivo -->
+    <br />
+    <div id="print_output"> <!-- aquí se imprime pyscript -->
+	    
+        <!-- aquí se imprimen primeras líneas de archivo -->
+        <p>Contenido de archivo:</p>
+        <div class="capa1">
+            <div id="content"></div>  
+            <div id="content0"></div>
+            <div id="content1"></div>
+            <div id="content2"></div>
+            <div id="content3"></div>
+            <div id="content4"></div>
+            <div id="content5"></div>
+        </div>
+        <br />
+
+
+        <!-- en este div se imprimen todas las rutas -->
+        
+        <p>distancias: se calcula desde un archivo de csv con <br> 
+            valores separados por comillas con primera columna <br> 
+            nombre con el que se identifica cada elemento en <br> 
+            fila y el resto de valores en fila - coordenadas de cada elemento. <br>
+            <a href ="distancias.html">ejemploa</a>
+        </p>
+        <p><button py-click="principal()" class="boton1" id="manual3" data-tooltip="distancias entre todos los puntos">DISTANCIAS</button> <button py-click="rutas_posibles()" class="boton1" id="manual5" data-tooltip="todas las rutas posibles">RUTAS</button> <button py-click="borrar2()" class="boton1" id="manual4" data-tooltip="borrar todas las gráficas">BORRAR</button></p>       
+
+        <div class="capa3">
+            <div id="dato2"></div>  
+        </div>
+        
+        
+
+    </div>
+
+    <py-script>
+# importamos librerias 
+import io
+import asyncio
+import pandas as pd
+import matplotlib.pyplot as plt
+import math
+import numpy as np 
+import itertools # permutaciones
+import copy
+
+ 
+#from statsmodels.graphics.gofplots import qqplot # para qq test
+#import statsmodels.api as sm
+
+
+
+from js import document, FileReader
+from pyodide.ffi import create_proxy
+
+################################### las funciones que se llaman aparte cada una tras cargar los datos pulsando botones
+
+# función distancia euclídea (norma 1)
+def norma_1(a,b):
+    return round(math.dist(a,b),2)
+
+
+def principal():
+    list_dist = [] # lista de distancias ordenada
+    manual_div0 = Element("dato2") # indicamos donde lo vamos a representar
+    
+    l = len(df.iloc[:,0])
+    n = len(df.iloc[0,:])
+    k = 0;
+    while k < l:
+        r = k+1;
+        while r <= l-1:
+            a = df.iloc[k,1:n].to_list() # el primer elemento nocuenta porque es "nombre" apartir del segundo son coordenadas "-1" calcula hasta último
+            b = df.iloc[r,1:n].to_list()
+            d = norma_1(a,b)
+            elem_1 = df.iloc[k,0]
+            elem_2 = df.iloc[r,0]
+            lista_val=[elem_1,elem_2,d]
+            list_dist.append(lista_val) # hacemos lista de listas (matriz) donde cada elemento es elemento 1, elemento 2 y distancia entre ellos. 
+            r = r + 1;
+
+        k = k + 1;
+    manual_div0.element.innerText = []; # borrar todo
+    manual_div0.element.innerText = list_dist;    
+    
+def rutas_posibles():
+    l = len(df)
+    listadeobjetos = []
+    for i in range(l):
+        listadeobjetos.append(df.iloc[i,:].to_list())
+
+    permutations = list(itertools.permutations(listadeobjetos))
+    permutations_2 = copy.copy(permutations)
+
+    # ahora voy a meter aqui en cada ruta su diustancia
+    # como rutas no son variables globales es mejor hacerlo desde esta misma función
+    
+    # para cada elemento de permutations
+    for k in range(len(permutations)):
+        dist_total = 0;
+        n = len(permutations[0][0])
+        j_len = len(permutations[0])
+        for j in range(j_len-1):
+            dist_total = round(dist_total + norma_1(permutations[k][j][1:n],permutations[k][j+1][1:n]),2)
+        permutations_2[k] = permutations_2[k] + (dist_total,)
+
+        manual_div2 = Element("dato2") # indicamos donde lo vamos a representar
+    manual_div2.element.innerText = ""; # borrar todo
+    manual_div2.element.innerText = permutations_2; 
+
+# borrar todao
+def borrar2():
+    manual_div = Element("dato2")
+    manual_div.element.innerText = " "; 
+
+
+
+
+
+### ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+### ///////////////////////////// el código de abajo carga el archivo desde boton (1), define variables a partir de este (3),
+### además representa parte de archivo en div content y define variables globales (4),
+### el resto de código (superior) funciona ya correctamente con estas variables 
+
+###  procesado de archivo
+async def process_file(event):
+    fileList = event.target.files.to_py()
+
+    ###  4. esta función se ejecuta automáticamente al cargar el archivo (en boocle de abajo)
+    ### solo representa por pantalla rsumen del archivo
+    ### y define variables globales para el resto del código
+    def representar(dataframe):
+        nombres_1 = dataframe.columns.values
+        nombres_2 = str(nombres_1)
+        document.getElementById("content").innerHTML = nombres_2 # también puede usarse innerHTML o innerText
+
+        # ahora de una vez se guarda esta variable global para poder usarla en todo el script
+        global df; 
+        df = dataframe;
+        global tamanio;
+        tamanio = len(dataframe)
+        minimal = min(tamanio,4) # para decidir lineas máximo a representar 
+        # se imrime en ventana principal (capa 1)
+        for x in range(minimal):
+            document.getElementById("content" + str(x)).innerHTML = list(dataframe.iloc[x])
+        document.getElementById("content5").innerHTML = "... ... tamaño total: " + str(tamanio)
+
+    ###  3. definimos variable df (no global de momento) a partir del texto 
+    ### y llamamos función para representar (que también define variables flobales)
+    for f in fileList:
+        data = await f.text()
+        # read_csv recibe como parámetro archivo de texto pero en este caso le pasamos simple contenido del archivo
+        # para que read_csv pueda recibir este formato hay que añadir io.stringIO función creada para esto
+        df_0 = pd.read_csv(io.StringIO(data)) 
+
+        # representar parte de archivo en un div
+        representar(df_0)
+
+###  1. inicia aquí. Se carga desde el botón "myfile"
+def main():
+    # Create a Python proxy for the callback function
+    # process_file() is your function to process events from FileReader
+    file_event = create_proxy(process_file)
+
+    # Set the listener to the callback
+    e = document.getElementById("myfile")
+    e.addEventListener("change", file_event, False)
+main()
+
+    </py-script>
+    </body>
+</html>

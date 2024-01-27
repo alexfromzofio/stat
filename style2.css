@@ -82,11 +82,22 @@ body {
     border: 1px solid #AAAAAA; 
     inset: #AAAAAA;
     cursor:text;
-    height:400px;
+    height:100px;
     overflow:auto;
     width:600px; 
     resize:none;
     background:#ffffff;
+}
+
+.capa5{
+    border: 1px solid #AAAAAA; 
+    inset: #AAAAAA;
+    cursor:text;
+    height:400px;
+    overflow:auto;
+    width:600px; 
+    resize:none;
+    background:#ffffff; 
 }
 
 /* diseño de elementos de ayuda */ 

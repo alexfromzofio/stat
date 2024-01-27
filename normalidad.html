@@ -71,14 +71,21 @@
         </div>
         
         <!-- detalles de la histograma -->
-        <p>Detalles de la histograma</p>
+       
+        
+
+        <p>Información sobre muestra: </p>
         <div class="capa4">    
             <div id="info_hist_1"></div>
             <div id="info_hist_2"></div>
 
-            <!-- estos dos de abajo aun no estan con nada -->
+        </div>        
+        
+        <p>Q-Q Test:</p>
+        
+        <div class="capa5">    
+            <!-- test qq -->
             <div id="qq_test"></div>
-            <div id="graficaerror" data-tooltip="qqtest para comprobar normalidad"></div>
         </div>
 
     </div>
@@ -171,9 +178,6 @@ def frecuencia():
     x_sorted=()
     
 
-
-
-    
     manual_div2.element.innerText = "conjunto ordenado", x_set_sorted;
     manual_div3.element.innerText = "frecuencia absoluta correspondiente", freq_s;
 
@@ -205,8 +209,6 @@ def borrar():
     manual_div2.element.innerText = " ";
     manual_div3 = Element("info_hist_2")
     manual_div3.element.innerText = " ";
-    manual_div4 = Element("graficaerror")
-    manual_div4.element.innerText = " ";
     manual_div5 = Element("qq_test")
     manual_div5.element.innerText = " ";
 

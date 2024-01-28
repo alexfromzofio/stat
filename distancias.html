@@ -41,12 +41,34 @@
             fila y el resto de valores en fila - coordenadas de cada elemento. <br>
             <a href ="distancias.html">ejemplo</a>
         </p>
-        <p><button py-click="principal()" class="boton1" id="manual3" data-tooltip="distancias entre todos los puntos">DISTANCIAS</button> <button py-click="rutas_posibles()" class="boton1" id="manual5" data-tooltip="todas las rutas posibles">RUTAS</button> <button py-click="borrar2()" class="boton1" id="manual4" data-tooltip="borrar todas las gráficas">BORRAR</button></p>       
+        <p>
+            
+        Elige la métrica: por defecto es euclídea <br>
+
+        <input type="radio" name="empleoactual" value="tiempocompleto"> norma 1 <br>
+
+        <input type="radio" name="empleoactual" value="mediodia"> norma 2 (euclideana) <br>
+
+        <input type="radio" name="empleoactual" value="mediodia"> polares planos [radio,ángulo] <br>
+
+        <input type="radio" name="empleoactual" value="mediodia"> polares espacio [radio,ángulo1, ángulo2] <br>
+
+        <input type="radio" name="empleoactual" value="sinempleo" data-tooltip="para esta opción se debe eligir la hora de inicio"> Tiempo (referencia google maps) * <br>
+        
+        <br><input type="number" class="tentacles" id="tentacles1" name="tentacles1" min="0" style="width: 30px" value = "0"> <input type="number" class="tentacles" id="tentacles1" name="tentacles1" min="0" style="width: 30px" value = "0"> <button py-click="principal()" class="boton1" id="manual3" data-tooltip="por defecto [0][0] distancias entre todos los puntos. Elige filas concretas para calcular distancia entre dos puntos">DISTANCIAS</button> <br>
+        
+        <input type="number" class="tentacles" id="tentacles2" name="tentacles2" min="0" style="width: 30px" value = "0"> <button py-click="rutas_posibles()" class="boton1" id="manual5" data-tooltip="todas las rutas posibles">RUTAS</button> <br>
+
+        
+            
+               
 
         <div class="capa3">
             <div id="dato2"></div>  
         </div>
-        
+        <button py-click="borrar2()" class="boton1" id="manual4" data-tooltip="borrar todas las gráficas">BORRAR</button>
+    
+    </p>
         
 
     </div>

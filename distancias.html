@@ -38,26 +38,55 @@
         <p>distancias: se calcula desde un archivo de csv con <br> 
             valores separados por comillas con primera columna <br> 
             nombre con el que se identifica cada elemento en <br> 
-            fila y el resto de valores en fila - coordenadas de cada elemento. <br>
-            <a href ="distancias.html">ejemplo</a>
+            fila y el resto de valores en fila - coordenadas de <br>
+            cada elemento. <br><br>
+            Denotamos por “Problema del Mensajero” (dado que en la <br> 
+            práctica esta pregunta puede resolverse por cada cartero, <br> 
+            aunque puede ser resuelta por varios viajeros) la pregunta <br> 
+            es encontrar, para un conjunto finito de puntos de los cuales <br> 
+            se conocen las distancias entre cada par, el camino más corto <br>
+            entre estos puntos. Por supuesto, el problema es resuelto por <br> 
+            un conjunto finito de intentos. La regla que se debe seguir es <br> 
+            que desde el punto inicial se va al punto más cercano a este, de <br> 
+            ahí a su más cercano y así sucesivamente, en general este <br> 
+            algoritmo no retorna la ruta más corta. <i>Karl Menger</i> <br>
+            Ejemplo: ruta hasta el vecimo mas cercano: Madrid, Chinchón, Toledo, Segovia, Córdoba, Sevilla, Madrid : 1072.45<br>
+            Ruta mas corta: Madrid, Chinchón, Toledo, Córdoba, Sevilla, Segovia, Madrid : 941.41 
+
+
+            <a href ="distancias.html">ejemplo de archivo</a>
         </p>
         <p>
             
         Elige la métrica: por defecto es euclídea <br>
 
-        <input type="radio" name="empleoactual" value="tiempocompleto"> norma 1 <br>
 
-        <input type="radio" name="empleoactual" value="mediodia"> norma 2 (euclideana) <br>
-
-        <input type="radio" name="empleoactual" value="mediodia"> polares planos [radio,ángulo] <br>
-
-        <input type="radio" name="empleoactual" value="mediodia"> polares espacio [radio,ángulo1, ángulo2] <br>
-
-        <input type="radio" name="empleoactual" value="sinempleo" data-tooltip="para esta opción se debe eligir la hora de inicio"> Tiempo (referencia google maps) * <br>
         
-        <br><input type="number" class="tentacles" id="tentacles1" name="tentacles1" min="0" style="width: 30px" value = "0"> <input type="number" class="tentacles" id="tentacles1" name="tentacles1" min="0" style="width: 30px" value = "0"> <button py-click="principal()" class="boton1" id="manual3" data-tooltip="por defecto [0][0] distancias entre todos los puntos. Elige filas concretas para calcular distancia entre dos puntos">DISTANCIAS</button> <br>
+        <input type="radio" id="norma1" name="rbox" value="1"> norma 1 <br>
+
+        <input type="radio" id="norma2" name="rbox" value="2" checked> norma 2 (Euclideana) <br>
+
+        <input type="radio" id="polar_plana" name="rbox" value="3"> polares planos [radio,ángulo] <br>
+
+        <input type="radio" id="polar_espacio" name="rbox" data-tooltip="las distancias se recorren en rectas" value="4"> polares espacio [Radio,Latitud, Longitud] (distancia euclidiana)* <br>
+
+        <input type="radio" id="polar_espacio_esféricas" name="rbox" value="5"> polares espacio [Radio,Latitud, Longitud] (distancias esféricas)* <br>
+
+        <input type="radio" id="coordenadas" name="rbox" data-tooltip="coordenadas geográficas" value="6" data-tooltip="radio fijo terrestre 6371"> coordenadas geográficas [Latitud,Longitud] (distancias esféricas)* <br>
+
+        <input type="radio" id="tiempo" name="rbox" data-tooltip="para esta opción se debe eligir la hora de inicio" value="7"> Tiempo (referencia google maps)* <br>
         
-        <input type="number" class="tentacles" id="tentacles2" name="tentacles2" min="0" style="width: 30px" value = "0"> <button py-click="rutas_posibles()" class="boton1" id="manual5" data-tooltip="todas las rutas posibles">RUTAS</button> <br>
+        
+        
+        <br><input type="number" class="tentacles" id="tentacles1" name="tentacles1" min="0" style="width: 30px" value = "0"> <input type="number" class="tentacles" id="tentacles1" name="tentacles1" min="0" style="width: 30px" value = "0"> 
+        <button py-click="principal()" class="boton1" id="manual3" data-tooltip="por defecto [0][0] distancias entre todos los puntos. Elige filas concretas para calcular distancia entre dos puntos">DISTANCIAS</button> <br>
+        
+        <input type="number" class="tentacles" id="tentacles2" name="tentacles2" min="0" style="width: 30px" value = "0"> <button py-click="rutas_posibles()" class="boton1" id="manual5" data-tooltip="elige el punto desde el que comenzar la ruta. Por defecto con valor 0 se calculan todas las rutas !!! advertencia !!! cálculo volumenoso. Su navegador puede dejar de responder">RUTAS</button> 
+        <input type="checkbox" id ="ida_y_vuelta" name="ida_y_vuelta"> ida y vuelta 
+        
+        <input type="radio" id="todas" name="rbox2" value="1" checked> todas rutas
+        <input type="radio" id="ordenadas" name="rbox2" value="2" data-tooltip="!!! implica cálculo más volumenoso !!!"> orden creciente 
+        <input type="radio" id="minimal" name="rbox2" value="3"> ruta mas corta <br><br>
 
         
             
@@ -84,21 +113,138 @@ import numpy as np
 import itertools # permutaciones
 import copy
 
- 
 #from statsmodels.graphics.gofplots import qqplot # para qq test
 #import statsmodels.api as sm
-
-
 
 from js import document, FileReader
 from pyodide.ffi import create_proxy
 
 ################################### las funciones que se llaman aparte cada una tras cargar los datos pulsando botones
 
-# función distancia euclídea (norma 1)
-def norma_1(a,b):
-    return round(math.dist(a,b),2)
+# norma 1 (usando valor absoluto)   #### value =  1
+def norm_1(a,b):
+    t = 0;
+    for i in range(len(a)):
+        t = t + abs(a[i]-b[i])
+    return t
 
+# coordenadas polares planas #### value = 3
+def polares_2(a,b):
+    ax = a[0]*math.cos(a[1]*math.pi/180) # a = [radio_a, angulo_a] b = [radio_b, angulo_b]
+    ay = a[0]*math.sin(a[1]*math.pi/180)
+
+    bx = b[0]*math.cos(b[1]*math.pi/180) 
+    by = b[0]*math.sin(b[1]*math.pi/180)
+
+    av = [ax,ay]
+    bv = [bx,by]
+    
+    return math.dist(av,bv)
+
+# coordenadas polares esféricas pero con distancia en recta     #### value =  4
+def esfericas_1(a,b): # a[0] = RAD a[1] = LAT a[2] = LON distancia esféricas pero en rectas
+    ax = math.cos(a[2]*math.pi/180)*math.cos(a[1]*math.pi/180)*a[0]
+    ay = math.sin(a[2]*math.pi/180)*math.cos(a[1]*math.pi/180)*a[0]
+    az = math.sin(a[1]*math.pi/180)*a[0]
+
+    bx = math.cos(b[2]*math.pi/180)*math.cos(b[1]*math.pi/180)*b[0]
+    by = math.sin(b[2]*math.pi/180)*math.cos(b[1]*math.pi/180)*b[0]
+    bz = math.sin(b[1]*math.pi/180)*b[0]
+
+    av = [ax,ay,az]
+    bv = [bx,by,bz]
+
+    return math.dist(av,bv)
+
+
+# coordenadas esféricas con distancia en arco según radio #### value = 5
+def esfericas_2(a,b): # radio fijo pero dado en primera columna de datos
+    # vamos a recurrir a bibliotecas de numpy que ayudan trabajar con matrices y vectores
+    
+    ax = math.cos(a[2]*math.pi/180)*math.cos(a[1]*math.pi/180)*a[0]
+    ay = math.sin(a[2]*math.pi/180)*math.cos(a[1]*math.pi/180)*a[0]
+    az = math.sin(a[1]*math.pi/180)*a[0]
+
+    bx = math.cos(b[2]*math.pi/180)*math.cos(b[1]*math.pi/180)*b[0]
+    by = math.sin(b[2]*math.pi/180)*math.cos(b[1]*math.pi/180)*b[0]
+    bz = math.sin(b[1]*math.pi/180)*b[0]
+
+    av = np.array([ax,ay,az])
+    bv = np.array([bx,by,bz])
+
+    # calculamos el ángulo entre vectores con defincición de producto escalar
+    pab = av@bv
+    pa = math.sqrt(av@av)
+    pb = math.sqrt(bv@bv)
+    cos_alpha = pab/(pa*pb)
+    alpha = math.acos(cos_alpha)
+
+    dist = a[0]*alpha # el angulo ya viene dado en radianes
+    return dist
+
+
+
+# coordenadas geográficas #### value = 6
+def coordenadas(a,b): # radio fijo 6371 distancia en arco terrestre
+    # vamos a recurrir a bibliotecas de numpy que ayudan trabajar con matrices y vectores
+    r = 6371
+    ax = math.cos(a[1]*math.pi/180)*math.cos(a[0]*math.pi/180)*r
+    ay = math.sin(a[1]*math.pi/180)*math.cos(a[0]*math.pi/180)*r
+    az = math.sin(a[0]*math.pi/180)*r
+
+    bx = math.cos(b[1]*math.pi/180)*math.cos(b[0]*math.pi/180)*r
+    by = math.sin(b[1]*math.pi/180)*math.cos(b[0]*math.pi/180)*r
+    bz = math.sin(b[0]*math.pi/180)*r
+
+    av = np.array([ax,ay,az])
+    bv = np.array([bx,by,bz])
+
+    # calculamos el ángulo entre vectores con defincición de producto escalar
+    pab = av@bv
+    pa = math.sqrt(av@av)
+    pb = math.sqrt(bv@bv)
+    cos_alpha = pab/(pa*pb)
+    alpha = math.acos(cos_alpha)
+
+    dist = r*alpha # el angulo ya viene dado en radianes
+    return dist
+
+
+
+# función distancia (normas)
+def norma(a,b):
+    # aquí se introduce valor de radiobox para eligir la métrica 
+   
+    if document.getElementById("norma1").checked:
+        rate_value = document.getElementById("norma1").value;
+    elif document.getElementById("norma2").checked:    
+        rate_value = document.getElementById("norma2").value;
+    elif document.getElementById("polar_plana").checked:    
+        rate_value = document.getElementById("polar_plana").value;
+    elif document.getElementById("polar_espacio").checked:    
+        rate_value = document.getElementById("polar_espacio").value;
+    elif document.getElementById("polar_espacio_esféricas").checked:    
+        rate_value = document.getElementById("polar_espacio_esféricas").value;
+    elif document.getElementById("coordenadas").checked:    
+        rate_value = document.getElementById("coordenadas").value;
+    elif document.getElementById("tiempo").checked:    
+        rate_value = document.getElementById("tiempo").value;
+    
+    if rate_value == "1":
+        norma = round(norm_1(a,b),2)
+    elif rate_value == "2":
+        norma = round(math.dist(a,b),2)
+    elif rate_value == "3":
+        norma = round(polares_2(a,b),2)
+    elif rate_value == "4":
+        norma = round(esfericas_1(a,b),2)
+    elif rate_value == "5":
+        norma = round(esfericas_2(a,b),2)
+
+    elif rate_value == "6":
+        norma = round(coordenadas(a,b),2)
+    
+    return norma
 
 def principal():
     list_dist = [] # lista de distancias ordenada
@@ -112,7 +258,7 @@ def principal():
         while r <= l-1:
             a = df.iloc[k,1:n].to_list() # el primer elemento nocuenta porque es "nombre" apartir del segundo son coordenadas "-1" calcula hasta último
             b = df.iloc[r,1:n].to_list()
-            d = norma_1(a,b)
+            d = norma(a,b)
             elem_1 = df.iloc[k,0]
             elem_2 = df.iloc[r,0]
             lista_val=[elem_1,elem_2,d]
@@ -126,11 +272,32 @@ def principal():
 def rutas_posibles():
     l = len(df)
     listadeobjetos = []
+    listadeobjetos_titulos = []
     for i in range(l):
-        listadeobjetos.append(df.iloc[i,:].to_list())
 
+        listadeobjetos.append(df.iloc[i,:].to_list()) # convertimos en lista todos objetos con todas parámetros
     permutations = list(itertools.permutations(listadeobjetos))
-    permutations_2 = copy.copy(permutations)
+    
+    
+    # hacemos salidas recortadas o normales en función de tectacles 2 que corresponde a linea de un punto concreto.
+    # Solo se muestran rutas desde un punto concreto. Modificamos lista anterior añadiendo Solo
+    # elementos que comienzan por dado punto de salida 
+    
+    
+
+    if int(document.getElementById("tentacles2").value)!= 0:
+        value_3 = int(document.getElementById("tentacles2").value) - 1 # este indica posición en archivo y en dataframe del punto correspondente
+        lista_reducida = [];
+        # para acceder al numbre del unto debemos referirnos a df en este caso
+        nombre = df.iloc[value_3,0]
+        for j in range(len(permutations)):
+            if permutations[j][0][0] == nombre:
+                lista_reducida.append(permutations[j])
+
+        permutations = lista_reducida;
+
+
+
 
     # ahora voy a meter aqui en cada ruta su diustancia
     # como rutas no son variables globales es mejor hacerlo desde esta misma función
@@ -140,13 +307,51 @@ def rutas_posibles():
         dist_total = 0;
         n = len(permutations[0][0])
         j_len = len(permutations[0])
+        listadeobjetos_titulos.append([])
         for j in range(j_len-1):
-            dist_total = round(dist_total + norma_1(permutations[k][j][1:n],permutations[k][j+1][1:n]),2)
-        permutations_2[k] = permutations_2[k] + (dist_total,)
+            dist_total = round(dist_total + norma(permutations[k][j][1:n],permutations[k][j+1][1:n]),2)
+            listadeobjetos_titulos[k].append(permutations[k][j][0])
+        listadeobjetos_titulos[k].append(permutations[k][j_len-1][0]) # no se añade la última ciudad con el boocle por esto se hace aquí
+        listadeobjetos_titulos[k].append(dist_total)
+        
+        # si está eligido checkbox de ida y vuelta quiere decir que tenemos que añadir ida desde el último punto hasta el primero
+        if document.getElementById("ida_y_vuelta").checked:
+            listadeobjetos_titulos[k][j_len] = round(dist_total + norma(permutations[k][0][1:n],permutations[k][j_len-1][1:n]),2)
+    
 
+
+# eligimos entre varias opciones. Mostrar toda la ruta o solo la ruta minimal
+
+    if document.getElementById("todas").checked:
         manual_div2 = Element("dato2") # indicamos donde lo vamos a representar
-    manual_div2.element.innerText = ""; # borrar todo
-    manual_div2.element.innerText = permutations_2; 
+        manual_div2.element.innerText = ""; # borrar todo
+        manual_div2.element.innerText = listadeobjetos_titulos;  
+
+        
+              
+    
+    elif document.getElementById("ordenadas").checked:    
+        manual_div2 = Element("dato2") # indicamos donde lo vamos a representar
+        manual_div2.element.innerText = ""; # borrar todo
+        manual_div2.element.innerText = [2];
+        # rate_value_2 = document.getElementById("ordenadas").value;
+    
+    elif document.getElementById("minimal").checked:    
+        lista_distancias = []
+
+        len_elemento = len(listadeobjetos_titulos[0])
+        for i in range(len(listadeobjetos_titulos)):
+            lista_distancias.append(listadeobjetos_titulos[i][len_elemento-1])
+    
+        result = lista_distancias.index(min(lista_distancias))
+        manual_div2 = Element("dato2") # indicamos donde lo vamos a representar
+        manual_div2.element.innerText = ""; # borrar todo
+        manual_div2.element.innerText = listadeobjetos_titulos[result];
+
+
+    #### parte final de la función que imprime el resultado. 
+
+
 
 # borrar todao
 def borrar2():

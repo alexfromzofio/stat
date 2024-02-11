@@ -53,6 +53,7 @@ body {
     width:600px; 
     resize:horizontal;
     background:#ffffff;
+    border-radius: 6px;
 }
 
 .capa2{
@@ -64,6 +65,7 @@ body {
     width:600px; 
     resize:none;
     background:#ffffff;
+    border-radius: 6px;
 }
 
 
@@ -76,6 +78,9 @@ body {
     width:600px; 
     resize:none;
     background:#ffffff;
+    border-radius: 6px;
+   
+
 }
 
 .capa4{
@@ -100,6 +105,10 @@ body {
     background:#ffffff; 
 }
 
+.menu_1{
+    padding: 0.5em;
+}
+
 /* diseño de elementos de ayuda */ 
 
 [data-tooltip] {
@@ -107,20 +116,21 @@ body {
    }
    [data-tooltip]::after {
     content: attr(data-tooltip); /* Выводим текст */
-    position: absolute; /* Абсолютное позиционирование */
+    position: fixed; /* Абсолютное позиционирование */
     width: 300px; /* Ширина подсказки */
-    left: 0; top: 0; /* Положение подсказки */
-    background: #3989c9; /* Синий цвет фона */
+    left: 600px; top: 0; /* Положение подсказки */
+    background: #39b1c9; /* Синий цвет фона */
     color: #fff; /* Цвет текста */
     padding: 0.5em; /* Поля вокруг текста */
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Параметры тени */
     pointer-events: none; /* Подсказка */
     opacity: 0; /* Подсказка невидима */
     transition: 1s; /* Время появления подсказки */
+    border-radius: 6px;
    } 
    [data-tooltip]:hover::after {
     opacity: 1; /* Показываем подсказку */
-    top: 2em; /* Положение подсказки */
+    top: 3em; /* Положение подсказки */
    }
 
 

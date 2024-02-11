@@ -160,14 +160,14 @@ def frecuencia():
     # control de checkbox para hacer frecuencia relativa
     ch = document.getElementById("frec_abs_rel").checked; 
     if ch:
-        d = True
+        densidad = True
     else:
-        d = False
+        densidad = False
 
     ############# graficas 
     fig, ax = plt.subplots()
 
-    n, bins, patches = ax.hist(var_x, intervalos, density=d)
+    n, bins, patches = ax.hist(var_x, intervalos, density=densidad)
 
     ############ gráfica asociada de la función normal.
     media = (np.array(var_x)).mean()

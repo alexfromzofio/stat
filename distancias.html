@@ -35,69 +35,58 @@
 
         <!-- en este div se imprimen todas las rutas -->
         
-        <p>distancias: se calcula desde un archivo de csv con <br> 
-            valores separados por comillas con primera columna <br> 
-            nombre con el que se identifica cada elemento en <br> 
-            fila y el resto de valores en fila - coordenadas de <br>
-            cada elemento. <br><br>
-            Denotamos por “Problema del Mensajero” (dado que en la <br> 
-            práctica esta pregunta puede resolverse por cada cartero, <br> 
-            aunque puede ser resuelta por varios viajeros) la pregunta <br> 
-            es encontrar, para un conjunto finito de puntos de los cuales <br> 
-            se conocen las distancias entre cada par, el camino más corto <br>
-            entre estos puntos. Por supuesto, el problema es resuelto por <br> 
-            un conjunto finito de intentos. La regla que se debe seguir es <br> 
-            que desde el punto inicial se va al punto más cercano a este, de <br> 
-            ahí a su más cercano y así sucesivamente, en general este <br> 
-            algoritmo no retorna la ruta más corta. <i>Karl Menger</i> <br>
-            Ejemplo: ruta hasta el vecimo mas cercano: Madrid, Chinchón, Toledo, Segovia, Córdoba, Sevilla, Madrid : 1072.45<br>
-            Ruta mas corta: Madrid, Chinchón, Toledo, Córdoba, Sevilla, Segovia, Madrid : 941.41 
+
 
 
             <a href ="distancias.html">ejemplo de archivo</a>
-        </p>
-        <p>
+
+            <a href ="#" data-tooltip="distancias: se calcula desde un archivo de csv con
+                valores separados por comillas con primera columna
+                nombre con el que se identifica cada elemento en 
+                fila y el resto de valores en fila - coordenadas de 
+                cada elemento.
+                Denotamos por “Problema del Mensajero” (dado que en la 
+                práctica esta pregunta puede resolverse por cada cartero, 
+                aunque puede ser resuelta por varios viajeros) la pregunta 
+                es encontrar, para un conjunto finito de puntos de los cuales 
+                se conocen las distancias entre cada par, el camino más corto 
+                entre estos puntos. Por supuesto, el problema es resuelto por 
+                un conjunto finito de intentos. La regla que se debe seguir es 
+                que desde el punto inicial se va al punto más cercano a este, de  
+                ahí a su más cercano y así sucesivamente, en general este 
+                algoritmo no retorna la ruta más corta. Karl Menger
+                Ejemplo: ruta hasta el vecimo mas cercano: Madrid, Chinchón, Toledo, Segovia, Córdoba, Sevilla, Madrid : 1072.45<br>
+                Ruta mas corta: Madrid, Chinchón, Toledo, Córdoba, Sevilla, Segovia, Madrid : 941.41 "> info </a>
+        
+        <p class = "menu_1">
             
-        Elige la métrica: por defecto es euclídea <br>
-
-
-        
-        <input type="radio" id="norma1" name="rbox" value="1"> norma 1 <br>
-
-        <input type="radio" id="norma2" name="rbox" value="2" checked> norma 2 (Euclideana) <br>
-
-        <input type="radio" id="polar_plana" name="rbox" value="3"> polares planos [radio,ángulo] <br>
-
-        <input type="radio" id="polar_espacio" name="rbox" data-tooltip="las distancias se recorren en rectas" value="4"> polares espacio [Radio,Latitud, Longitud] (distancia euclidiana)* <br>
-
-        <input type="radio" id="polar_espacio_esféricas" name="rbox" value="5"> polares espacio [Radio,Latitud, Longitud] (distancias esféricas)* <br>
-
-        <input type="radio" id="coordenadas" name="rbox" data-tooltip="coordenadas geográficas" value="6" data-tooltip="radio fijo terrestre 6371"> coordenadas geográficas [Latitud,Longitud] (distancias esféricas)* <br>
-
-        <input type="radio" id="tiempo" name="rbox" data-tooltip="para esta opción se debe eligir la hora de inicio" value="7"> Tiempo (referencia google maps)* <br>
-        
-        
-        
-        <br><input type="number" class="tentacles" id="tentacles1" name="tentacles1" min="0" style="width: 30px" value = "0"> <input type="number" class="tentacles" id="tentacles1" name="tentacles1" min="0" style="width: 30px" value = "0"> 
-        <button py-click="principal()" class="boton1" id="manual3" data-tooltip="por defecto [0][0] distancias entre todos los puntos. Elige filas concretas para calcular distancia entre dos puntos">DISTANCIAS</button> <br>
-        
-        <input type="number" class="tentacles" id="tentacles2" name="tentacles2" min="0" style="width: 30px" value = "0"> <button py-click="rutas_posibles()" class="boton1" id="manual5" data-tooltip="elige el punto desde el que comenzar la ruta. Por defecto con valor 0 se calculan todas las rutas !!! advertencia !!! cálculo volumenoso. Su navegador puede dejar de responder">RUTAS</button> 
-        <input type="checkbox" id ="ida_y_vuelta" name="ida_y_vuelta"> ida y vuelta 
-        
-        <input type="radio" id="todas" name="rbox2" value="1" checked> todas rutas
-        <input type="radio" id="ordenadas" name="rbox2" value="2" data-tooltip="!!! implica cálculo más volumenoso !!!"> orden creciente 
-        <input type="radio" id="minimal" name="rbox2" value="3"> ruta mas corta <br><br>
-
-        
+            Elige la métrica: por defecto es euclídea <br>
+            <input type="radio" id="norma1" name="rbox" value="1"> norma 1 <br>
+            <input type="radio" id="norma2" name="rbox" value="2" checked> norma 2 (Euclideana) <br>
+            <input type="radio" id="polar_plana" name="rbox" value="3"> polares planos [radio,ángulo] <br>
+            <input type="radio" id="polar_espacio" name="rbox" data-tooltip="las distancias se recorren en rectas" value="4"> polares espacio [Radio,Latitud, Longitud] (distancia euclidiana)* <br>
+            <input type="radio" id="polar_espacio_esféricas" name="rbox" value="5"> polares espacio [Radio,Latitud, Longitud] (distancias esféricas)* <br>
+            <input type="radio" id="coordenadas" name="rbox" data-tooltip="coordenadas geográficas" value="6" data-tooltip="radio fijo terrestre 6371"> coordenadas geográficas [Latitud,Longitud] (distancias esféricas)* <br>
+            <input type="radio" id="tiempo" name="rbox" data-tooltip="para esta opción se debe eligir la hora de inicio" value="7"> Tiempo (referencia google maps)* <br>
             
-               
+            <br>
+            <input type="number" class="tentacles" id="tentacles1" name="tentacles1" min="0" style="width: 30px" value = "0"> 
+            <input type="number" class="tentacles" id="tentacles1" name="tentacles1" min="0" style="width: 30px" value = "0"> 
+            <button py-click="principal()" class="boton1" id="manual3" data-tooltip="por defecto [0][0] distancias entre todos los puntos. Elige filas concretas para calcular distancia entre dos puntos">DISTANCIAS</button> 
+            <br>
+            <input type="number" class="tentacles" id="tentacles2" name="tentacles2" min="0" style="width: 30px" value = "0"> <button py-click="rutas_posibles()" class="boton1" id="manual5" data-tooltip="elige el punto desde el que comenzar la ruta. Por defecto con valor 0 se calculan todas las rutas !!! advertencia !!! cálculo volumenoso. Su navegador puede dejar de responder">RUTAS</button> 
+            <input type="checkbox" id ="ida_y_vuelta" name="ida_y_vuelta"> ida y vuelta 
+            
+            <input type="radio" id="todas" name="rbox2" value="1" checked> todas rutas
+            <input type="radio" id="ordenadas" name="rbox2" value="2" data-tooltip="!!! implica cálculo más volumenoso !!!"> orden creciente 
+            <input type="radio" id="minimal" name="rbox2" value="3"> ruta mas corta <br><br>
 
-        <div class="capa3">
-            <div id="dato2"></div>  
-        </div>
-        <button py-click="borrar2()" class="boton1" id="manual4" data-tooltip="borrar todas las gráficas">BORRAR</button>
+            <div class="capa3">
+                <div id="dato2"></div>  
+            </div>
+            <button py-click="borrar2()" class="boton1" id="manual4" data-tooltip="borrar todas las gráficas">BORRAR</button>
     
-    </p>
+        </p>
         
 
     </div>
@@ -112,7 +101,7 @@ import math
 import numpy as np 
 import itertools # permutaciones
 import copy
-
+from time import time
 #from statsmodels.graphics.gofplots import qqplot # para qq test
 #import statsmodels.api as sm
 
@@ -270,6 +259,7 @@ def principal():
     manual_div0.element.innerText = list_dist;    
     
 def rutas_posibles():
+    tiempo_inicial = time()
     l = len(df)
     listadeobjetos = []
     listadeobjetos_titulos = []
@@ -351,7 +341,9 @@ def rutas_posibles():
 
     #### parte final de la función que imprime el resultado. 
 
+    tiempo_final = time()
 
+    tiempo_total = tiempo_final - tiempo_inicial
 
 # borrar todao
 def borrar2():

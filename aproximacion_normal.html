@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>aproximación normal</title>
+        <link rel="stylesheet" type="text/css" href="style2.css">
+        <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    </head>
+
+    <body>
+    <py-config>
+        packages = ["pandas", "matplotlib", "statsmodels"] 
+    </py-config>
+
+    <div id="print_output"> <!-- aquí se imprime pyscript -->
+	    
+        <!-- aquí se imprimen primeras líneas de archivo -->
+
+
+
+        <!-- en este div se imprimen todas las rutas -->
+        
+
+
+        
+        <p class = "menu_1">
+            
+            Indica el valor real z menor o igual a 0 para calcular distribución: <br>
+            <input id = "zeta" type="number" class="tentacles" style = width:100px value="0.0000" step="0.0001" max="0.0000"><br> 
+            Indica la "cola" c menor que z, valor real para mejorar la aproximación y reducir el cálculo <br>
+            <input id = "cola" type="number" class="tentacles" style = width:100px value="0.0000" step="0.0001" max="0.0000"><br> 
+            Indica cantidad de subintervalos de aproximación t , número real <br>
+            <input id = "intervalos" type="number" class="tentacles" style = width:100px value="0" step="1" min="0">
+            <p>            <button py-click="aceptar()" class="boton1" id="manual3">ACEPTAR</button> </p>
+
+
+            <div class="capa3">
+                <div id="dato2"></div>  
+            </div><br>
+            <button py-click="borrar2()" class="boton1" id="manual4" data-tooltip="borrar todas las gráficas">BORRAR</button>
+    
+        </p>
+        
+
+    </div>
+
+    <py-script>
+# importamos librerias 
+import io
+import asyncio
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import math
+import numpy as np 
+
+
+
+from js import document, FileReader
+from pyodide.ffi import create_proxy
+
+################################### las funciones que se llaman aparte cada una tras cargar los datos pulsando botones
+
+
+def densidad_norm(x):
+
+    p_z = (math.exp(-(x**2)/2))/(math.sqrt(2*math.pi))
+    return p_z
+
+
+# definimos función universal de aproximación
+# z numero real: extremo de intervalo para cálculo de probabilidad
+# c numero real: extremo de la cola
+# t numero natural: cantidad de subintervalos
+# cadena que toma valores "mimmal", "maximal", "aproximacion"
+#
+def general(z,c,t,m):
+    
+    # generamos subintervalos de áreas
+    t_int = [] # generamos extremos de subintervalos
+    
+    t_dist = (z-c)/t
+    k = 0;
+    if m == "minimal": # caso para anadir c1 y quitar punto z
+        t_int.append(c)
+    for i in range(t):
+        k = k + t_dist
+        t_int.append(c+k)
+    if m == "minimal":# caso para anadir c1 y quitar punto z
+        t_int.pop(t)
+    if m == "maximal":# caso para quitar el primer punto
+        t_int.pop(0)
+        
+    # generamos aproximaciones de areas
+    area = 0
+    for j in t_int:
+        area = area + t_dist*densidad_norm(j)
+    return area
+
+def función_principal(z,c,t):
+    # genera solo aproximacion y el error que se comete
+    # pero ya teniendo en cuenta la cola
+    aproximado = (general(z,c,t,"maximal")+general(z,c,t,"minimal"))/2
+    error = general(z,c,t,"maximal")+1/2 -general(0,c,t,"minimal") -general(z,c,t,"minimal")
+    
+    return aproximado, error
+
+def salida_grafica(z,c,t):
+    # t cantidad de subintervalos
+    # creamos una lista hasta t
+    intervalo_base=[]
+    for i in range(t):
+        intervalo_base.append(i+1)
+    intervalo1 = []
+    intervalo2 = []
+    for i in intervalo_base:
+        intervalo1.append(función_principal(z,c,i)[0])
+        intervalo2.append(función_principal(z,c,i)[1])
+
+    return intervalo1, intervalo2
+
+def aceptar():
+    value_1 = float(document.getElementById("zeta").value)
+    value_2 = float(document.getElementById("cola").value)
+    value_3 = int(document.getElementById("intervalos").value)
+    
+    manual_div1 = Element("dato2") # indicamos donde lo vamos a representar
+
+    t = salida_grafica(value_1,value_2,value_3)
+
+    manual_div1.element.innerText = ""; # borrar todo
+    manual_div1.element.innerText = t[0][value_3-1],t[1][value_3-1];  
+
+    plt.style.use('classic') 
+
+    fig,ax=plt.subplots()
+    ax.plot(t[0],c="green", label="aproximación")
+    ax.plot(t[1],c="red", label="error")
+    ax.legend(loc='upper right')
+      #Damos formato a la gráfica
+      # si queiro añadir el sombreado entre las gráficas
+     #plt.fill_between(fechas, max, min,facecolor='grey',alpha=0.5)
+    fig.autofmt_xdate()     
+    plt.title("ERROR", fontsize=16)
+    plt.xlabel("CANTIDAD DE SUBINTERVALOS",fontsize=14)     
+    fig.set_size_inches(5.5, 5.5)
+    display(fig, target="dato2")
+
+# borrar todao
+def borrar2():
+    manual_div = Element("dato2")
+    manual_div.element.innerText = " "; 
+
+
+
+
+
+
+
+    </py-script>
+    </body>
+</html>

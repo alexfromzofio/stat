@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrolling Vertical con Estilo Activo</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Contenedor de la página con scrolling vertical */
+        .container {
+            width: 100%;
+            height: 100vh;
+            overflow-y: auto;
+            background-color: #f4f4f4;
+        }
+
+        /* Elementos de contenido */
+        .content {
+            padding: 20px;
+            height: 150vh; /* Aumenta la altura para forzar el scroll */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        /* Lista de navegación */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        /* Estilo cuando el enlace está activo */
+        .nav a.active {
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+
+        /* Estilos adicionales */
+        .section {
+            height: 100vh;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ccc;
+        }
+
+        #section1 {
+            background-color: #f7b7a3;
+        }
+
+        #section2 {
+            background-color: #a3d2f7;
+        }
+
+        #section3 {
+            background-color: #b7f7a3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación -->
+    <div class="nav">
+        <a href="#section1" class="active" onclick="setActive(this)">Sección 1</a>
+        <a href="#section2" onclick="setActive(this)">Sección 2</a>
+        <a href="#section3" onclick="setActive(this)">Sección 3</a>
+    </div>
+
+    <!-- Contenedor con scrolling vertical -->
+    <div class="container">
+        <div class="content">
+            <div id="section1" class="section">
+                <h1>Sección 1</h1>
+                <p>Contenido de la sección 1. Desplázate hacia abajo para ver más secciones.</p>
+            </div>
+
+            <div id="section2" class="section">
+                <h1>Sección 2</h1>
+                <p>Contenido de la sección 2. Desplázate hacia abajo para ver más secciones.</p>
+            </div>
+
+            <div id="section3" class="section">
+                <h1>Sección 3</h1>
+                <p>Contenido de la sección 3. ¡Has llegado al final!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para resaltar el enlace activo -->
+    <script>
+        function setActive(element) {
+            var links = document.querySelectorAll('.nav a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

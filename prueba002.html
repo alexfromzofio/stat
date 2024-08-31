@@ -14,8 +14,8 @@
         /* Contenedor principal */
         .container {
             display: flex;
-            transition: transform 1.5s ease-in-out; /* Transición lenta */
-            width: 300%; /* Tres secciones, cada una ocupa 100% del ancho */
+            transition: transform 3s ease-in-out; /* Transición lenta */
+            width: 400%; /* Tres secciones, cada una ocupa 100% del ancho */
         }
 
         /* Secciones */
@@ -33,6 +33,7 @@
         #section1 { background-color: #4CAF50; }
         #section2 { background-color: #2196F3; }
         #section3 { background-color: #FF5722; }
+        #section4 { background-color: #c3ff00; }
 
         /* Botones de navegación */
         nav {
@@ -66,6 +67,7 @@
         <button onclick="scrollToSection(0)">Sección 1</button>
         <button onclick="scrollToSection(1)">Sección 2</button>
         <button onclick="scrollToSection(2)">Sección 3</button>
+        <button onclick="scrollToSection(3)">Sección 4</button>
     </nav>
 
     <!-- Contenedor de secciones -->
@@ -73,6 +75,7 @@
         <div id="section1" class="section">Sección 1</div>
         <div id="section2" class="section">Sección 2</div>
         <div id="section3" class="section">Sección 3</div>
+        <div id="section4" class="section">Sección 4</div>
     </div>
 
     <script>

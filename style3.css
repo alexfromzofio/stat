@@ -1,0 +1,92 @@
+body {
+	background-color: #aed7c995;
+    background-size: 10rem;
+	background-attachment: fixed;
+	padding:0px;
+	margin:0px;
+    font-family: 'Helvetica', sans-serif; /*tipografía texto*/
+
+}
+
+
+	
+.boton1 {
+    border: 1px solid #000000; /*anchura, estilo y color borde*/
+    background-color: #AAAAAA; /*color botón*/
+    color: #000000; /*color texto*/
+    text-decoration: none; /*decoración texto*/
+    font-family: 'Helvetica', sans-serif; /*tipografía texto*/
+    padding-left: 5px;
+    padding-right: 5px;
+    
+}
+
+.boton2 {
+    border: 1px solid #000000; /*anchura, estilo y color borde*/
+    background-color: #AAAAAA; /*color botón*/
+    color: #000000; /*color texto*/
+    text-decoration: none; /*decoración texto*/
+    font-family: 'Helvetica', sans-serif; /*tipografía texto*/
+    padding: 1px;
+    width: 600px;
+    
+}
+
+.tentacles{
+    border: 1px solid #000000; /*anchura, estilo y color borde*/
+    background-color: #AAAAAA; /*color botón*/
+    color: #000000; /*color texto*/
+    text-decoration: none; /*decoración texto*/
+    font-family: 'Helvetica', sans-serif; /*tipografía texto*/
+    padding: 1px;
+    width:45px;
+}
+
+
+
+
+
+
+.capa1{
+    border: 0px solid #AAAAAA; 
+    inset: #AAAAAA;
+    cursor:text;
+    height:80px;
+    overflow:auto;
+    width:600px; 
+    resize:horizontal;
+    background:#ffffff;
+    border-radius: 0px;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    padding-left: 5px;
+}
+
+
+
+/* diseño de elementos de ayuda */ 
+
+[data-tooltip] {
+    position: relative; /* Относительное позиционирование */ 
+   }
+   [data-tooltip]::after {
+    content: attr(data-tooltip); /* Выводим текст */
+    position: fixed; /* Абсолютное позиционирование */
+    width: 300px; /* Ширина подсказки */
+    left: 600px; top: 0; /* Положение подсказки */
+    background: #39b1c9; /* Синий цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 0.5em; /* Поля вокруг текста */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Параметры тени */
+    pointer-events: none; /* Подсказка */
+    opacity: 0; /* Подсказка невидима */
+    transition: 1s; /* Время появления подсказки */
+    border-radius: 6px;
+   } 
+   [data-tooltip]:hover::after {
+    opacity: 1; /* Показываем подсказку */
+    top: 3em; /* Положение подсказки */
+   }
+
+
+
+ 

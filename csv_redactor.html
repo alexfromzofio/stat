@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="style3.css">
+
+  <title>csv redactor</title>
+</head>
+<body>
+  <h1>Gestión de archivos CSV</h1>
+
+
+  <p>Selecciona el archivo a mostrar</p>
+  <input type="file" id="archivo1" class="boton2" />
+  <h4>Contenido del archivo:</h4>
+  <!-- pre es para mostrar texto no preformateado -->
+  <div class = "capa1">
+    <pre id="contenido-archivo"></pre>
+  </div>
+  <p>Elige qué fila quieres exportar a un archivo csv</p>
+  <input type="number" class="tentacles" id="tentacles" name="tentacles" min="1" style="width: 30px" value="0" >
+  <button id="exportar" class="boton1" > Exportar </button>
+  <script>
+
+
+
+
+    /**
+    * Importar y operar con .csv
+    **/
+
+    // aparte de guardar data voy a intentar guardar arrays 
+    function guardarlistas(data) {
+        
+      todas_filas = data 
+      todas_filas_separadas = data.split(/\r?\n|\r/);
+
+      // longitud (cantidad de filas)
+      len = todas_filas_separadas.length
+
+      // para conocer tipo
+      // r = typeof todas_filas_separadas[0]
+
+      // primera fila
+      fila_0 = todas_filas_separadas[0]
+      // separando por coma
+      head = fila_0.split(",");
+      // longitud de fila (cantidad de columnas)
+      wid = head.length
+
+      // creamos array completo para trabajar comodamente
+      a = [];
+      for (let step = 0; step < len; step++) {
+        filas_split = todas_filas_separadas[step].split(",");
+        a.push(filas_split);
+      }
+
+
+      //representación de primera fila solo (head)
+      document.querySelector('#contenido-archivo').innerHTML = a[0];
+
+      }
+
+
+
+
+    function leerArchivo(evt) {
+      const file = evt.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+      // Cuando el archivo se terminó de cargar
+
+      // Leemos el contenido del archivo seleccionado (no exportr, asignar variable)
+      guardarlistas(e.target.result)
+      };
+      reader.readAsText(file);
+    }
+
+
+    // funciones listeners para recibir archivos desde el navegador
+
+    document.querySelector('#archivo1')
+        // change - si hay cambios, ejecutar función leerArchivo 
+        .addEventListener('change', leerArchivo, false);
+
+    /**
+    * Exportar
+    **/
+    function exportar (data, fileName) {
+      const a = document.createElement("a");
+      const contenido = data,
+          blob = new Blob([contenido], {type: "octet/stream"}),
+          url = window.URL.createObjectURL(blob);
+      a.href = url;
+      a.download = fileName;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      
+    };
+
+    document.querySelector('#exportar').onclick = function () {
+      num_fila = document.getElementById("tentacles").value
+      data = a[num_fila]
+      
+      const nombreArchivo = 'ejemplo.csv'
+      exportar(data, nombreArchivo);
+    }
+
+  </script>
+
+</body>
+</html>

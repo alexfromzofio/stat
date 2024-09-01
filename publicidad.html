@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transición Lenta entre Secciones</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Contenedor principal */
+        .container {
+            display: flex;
+            transition: transform 3s ease-in-out; /* Transición lenta */
+            width: 400%; /* Tres secciones, cada una ocupa 100% del ancho */
+        }
+
+        /* Secciones */
+        .section {
+            width: 100vw; /* Cada sección ocupa el ancho completo de la pantalla */
+            height: 100vh; /* Cada sección ocupa toda la altura de la pantalla */
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Colores de las secciones */
+        #section1 { background-color: #4CAF50; }
+        #section2 { background-color: #2196F3; }
+        #section3 { background-color: #FF5722; }
+        #section4 { background-color: #c3ff00; }
+
+        /* Botones de navegación */
+        nav {
+           position:relative;
+           top: 0px;
+           left: 0%;
+           z-index: 100;
+        }
+
+        nav button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.9s;
+            
+        }
+
+        nav button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botones de navegación -->
+
+
+    <!-- Contenedor de secciones -->
+    <div class="container" id="container">
+        <div id="section1" class="section">Sección 1
+
+            <nav>
+                <button onclick="scrollToSection(1)">Sección 2</button>
+
+            </nav>
+
+        </div>
+        <div id="section2" class="section">Sección 2
+
+
+            <nav>
+
+                <button onclick="scrollToSection(2)">Sección 3</button>
+
+            </nav>
+        </div>
+        <div id="section3" class="section">Sección 3
+
+            <nav>
+
+                <button onclick="scrollToSection(3)">Sección 4</button>
+
+            </nav>
+
+
+
+        </div>
+        <div id="section4" class="section">Sección 4
+
+            <nav>
+
+                <button onclick="scrollToSection(0)">Sección 1</button>
+            </nav>
+
+
+
+
+        </div>
+    </div>
+
+    <script>
+        function scrollToSection(index) {
+            const container = document.getElementById('container');
+            container.style.transform = `translateX(-${index * 100}vw)`;
+        }
+    </script>
+
+</body>
+</html>

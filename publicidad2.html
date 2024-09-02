@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Página con Scroll Vertical y Enlaces Atractivos</title>
+    <style>
+        /* Estilos generales */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            height: 100%;
+            scroll-behavior: smooth; /* Desplazamiento suave */
+        }
+
+        /* Fondo y contenedor */
+        body {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Sección */
+        section {
+            height: 100vh; /* Cada sección ocupa el 100% del alto de la pantalla */
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        /* Secciones con fondos diferentes */
+        #section1 {
+            background: linear-gradient(135deg, #ff3300, #ff2a8a);
+        }
+
+        #section2 {
+            background: linear-gradient(135deg, #cb1171, #5c29e8);
+        }
+
+        #section3 {
+            background: linear-gradient(135deg, #9f1fe9, #05cf52);
+        }
+
+        #section4 {
+            background: linear-gradient(135deg, #11d732, #e3e61d);
+        }
+        #section5 {
+            background: linear-gradient(135deg, #000000, #717171);
+        }
+
+        /* Estilos de los botones */
+        .scroll-button, .link-button {
+            margin: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            text-decoration: none; /* Quitar subrayado de los enlaces */
+            color: black;
+            display: inline-block;
+        }
+
+        .scroll-button:hover, .link-button:hover {
+            background-color: rgba(255, 255, 255, 1);
+            transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
+        }
+
+        .link-button {
+            background-color: rgba(255, 255, 255, 0.9); /* Color un poco más opaco para distinguir los enlaces */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sección 1 -->
+    <section id="section1">
+        <h1>Sección 1</h1>
+        <p>Bienvenido a la primera sección</p>
+        
+        <!-- Enlaces atractivos en la sección 1 -->
+        <a href="#" class="link-button">Enlace 1</a>
+        <a href="#" class="link-button">Enlace 2</a>
+        <a href="#" class="link-button">Enlace 3</a>
+        
+        <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });">
+            Ir a la Sección 2
+        </button>
+    </section>
+
+    <!-- Sección 2 -->
+    <section id="section2">
+        <h1>Sección 2</h1>
+        <p>Ahora estás en la segunda sección</p>
+
+        <!-- Enlaces atractivos en la sección 2 -->
+        <a href="#" class="link-button">Enlace 4</a>
+        <a href="#" class="link-button">Enlace 5</a>
+        <a href="#" class="link-button">Enlace 6</a>
+
+        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });">
+            Ir a la Sección 3
+        </button>
+    </section>
+
+    <!-- Sección 3 -->
+    <section id="section3">
+        <h1>Sección 3</h1>
+        <p>Has llegado a la tercera y última sección</p>
+
+        <!-- Enlaces atractivos en la sección 3 -->
+        <a href="#" class="link-button">Enlace 7</a>
+        <a href="#" class="link-button">Enlace 8</a>
+        <a href="#" class="link-button">Enlace 9</a>
+
+        <button class="scroll-button" onclick="document.getElementById('section4').scrollIntoView({ behavior: 'smooth' });">
+            ir a la sección 4
+        </button>
+    </section>
+
+
+
+
+
+
+
+    <!-- Sección 4 -->
+    <section id="section4">
+        <h1>Sección 4</h1>
+        <p>Has llegado a la cyarta y última sección</p>
+
+        <!-- Enlaces atractivos en la sección 3 -->
+        <a href="#" class="link-button">Enlace 10</a>
+        <a href="#" class="link-button">Enlace 11</a>
+        <a href="#" class="link-button">Enlace 12</a>
+
+        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });">
+            Volver a la Sección 1
+        </button>
+    </section>
+
+
+    <section id="section5">
+        <h1>Sección 5</h1>
+        <p>ver video</p>
+        <iframe width="342" height="607" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <!-- Enlaces atractivos en la sección 1 -->
+        
+        <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });">
+            volver
+        </button>
+    </section>
+
+</body>
+</html>

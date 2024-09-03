@@ -40,25 +40,25 @@
 
         /* Secciones con fondos diferentes */
         #section1 {
-            background: linear-gradient(135deg, #ff3300, #ff2a8a);
+            background: linear-gradient(180deg, #ff3300, #ff2a8a);
         }
 
         #section2 {
-            background: linear-gradient(135deg, #cb1171, #5c29e8);
+            background: linear-gradient(180deg, #ff2a8a, #5c29e8);
         }
 
         #section3 {
-            background: linear-gradient(135deg, #9f1fe9, #05cf52);
+            background: linear-gradient(180deg, #5c29e8, #05cf52);
         }
 
         #section4 {
-            background: linear-gradient(135deg, #11d732, #e3e61d);
+            background: linear-gradient(180deg, #05cf52, #e3e61d);
         }
         #section5 {
-            background: linear-gradient(135deg, #000000, #717171);
+            background: linear-gradient(180deg, #000000, #000000);
         }
         .videos {
-            background: linear-gradient(135deg, #000000, #717171);
+            background: linear-gradient(180deg, #000000, #717171);
         }
 
         /* Estilos de los botones */
@@ -84,8 +84,39 @@
         .link-button {
             background-color: rgba(255, 255, 255, 0.9); /* Color un poco más opaco para distinguir los enlaces */
         }
+        p.text_left_align {
+            text-align: left;
+            width: 50%;
+            font-size:smaller;
+        }
+        .boton_whatsapp{
+            position:fixed;
+            width:55px;
+            height: 55px;
+            line-height: 55px;
+            bottom: 30px;
+            right: 30px;
+            background-color:#00ff7b;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+            z-index: 100; }
+        .boton_whatsapp:hover{
+            text-decoration: none;
+            color: #0dff6e;
+            background-color: #fff;}
+        .icon_whatsapp{
+            font-size:smaller;
+
+        }
+
+        
 
     </style>
+    <a href="https://api.whatsapp.com/send?phone=611264799" class="boton_whatsapp" target="_blank">
+        <i class="icon_whatsapp">WhatsApp</i>
+    </a>
 </head>
 <body>
 
@@ -125,41 +156,65 @@
         <h1>Selectividad / EVAU</h1>
         <p><i>Preparamos juntos la forma mas eficaz de aprobar este examen y sacar una buena nota. Desarrollamos el calendario de trabajo, horrarios, temario, listado de ejercicios, simulacros de exámenes. Te acompaño hasta el día de examen.</i></p>
 
-        <!-- Enlaces atractivos en la sección 3 -->
+        <!-- Enlaces a videos de selectividasd -->
         <button class="scroll-button" onclick="document.getElementById('selectividad1').scrollIntoView({ behavior: 'smooth' });">Algebra matricial</button>        
         <button class="scroll-button" onclick="document.getElementById('selectividad2').scrollIntoView({ behavior: 'smooth' });">Sistemas de ecuaciones</button>
         <button class="scroll-button" onclick="document.getElementById('selectividad3').scrollIntoView({ behavior: 'smooth' });">Geometría analítica</button> 
+        <button class="scroll-button" onclick="document.getElementById('selectividad3').scrollIntoView({ behavior: 'smooth' });">Análisis</button> 
         <button class="scroll-button" onclick="document.getElementById('selectividad4').scrollIntoView({ behavior: 'smooth' });">Probabilidad y estadística</button> 
 
-
-
-        <button class="scroll-button" onclick="document.getElementById('section4').scrollIntoView({ behavior: 'smooth' });">
-            Mas cosillas
-        </button>
+        <button class="scroll-button" onclick="document.getElementById('section4').scrollIntoView({ behavior: 'smooth' });"> Mas cosillas </button>
     </section>
 
 
-
-
-
-
-
-    <!-- Sección 4 -->
+    <!-- Sección 4 mas cosillas -->
     <section id="section4">
-        <h1>Sección 4</h1>
-        <p>Has llegado a la cyarta y última sección</p>
+        <h1>Más cosillas</h1>
+        <p class="text_left_align"><i>Participa en proyectos científicos de tipo computacional: </i>
+            <br># introducción a programación en web usando lenguaje python 
+            <br># creación de aplicaciones de estadística y inteligencia artificial 
+            <br># manipulación de archivos de base de datos usando javascript en el navegador web 
+            <br># tecnologías de recopilación de datos (web scraping)
+            <br># participa en grupos abiertos de desarrollos teóricos de algunos resultados y teoremas matemáticos
+            <br>... y mucho más...
+        </p>
+        <!-- Enlaces atractivos en la sección 3 -->
+        <a href="https://iimadrid.es/herramientas.html" class="link-button">Ver ejemplos</a>
+
+        <button class="scroll-button" onclick="document.getElementById('section5').scrollIntoView({ behavior: 'smooth' });"> Ofertas y contacto </button>
+    </section>
+
+
+    <!-- contacto -->
+    <section id="section5">
+        <h1>Ofertas y contacto</h1>
+        <p class="text_left_align"><i>Clases online: </i>
+            <br># primera clase de toma de contacto - sin compromiso y gratuita 
+            <br># 1 alumno - 12 € 
+            <br># grupo 2 alumnos - 8 € por alumno
+            <br># contrata pack de 12 clases mensuales (3 por semana durante 4 semanas) - 120 € (10 € por clase)
+        </p>
+        <p class="text_left_align"><i>Clases presenciales: </i>
+            <br># 1 alumno - 15 € 
+            <br># grupo 2 alumnos - 10 € por alumno
+            <br># grupo 3 alumnos - 8 € por alumno
+            <br># contrata pack de 12 clases mensuales (3 por semana durante 4 semanas) - 156 € (13 € por clase)
+        </p>
+        <p class="text_left_align"><i>Para todos los alumnos: </i>
+            <br># todos alumnos pueden participar de forma gratuita en grupos abiertos de desarrollos teóricos de algunos resultados y teoremas matemáticos de forma periódica
+            <br># los alumnos habituales pueden participar de forma gratuita en el desarrollo de proyectos científicos superando un umbral de cantidad de alumnos
+        </p>
+
 
         <!-- Enlaces atractivos en la sección 3 -->
-        <a href="#" class="link-button">Enlace 10</a>
-        <a href="#" class="link-button">Enlace 11</a>
-        <a href="#" class="link-button">Enlace 12</a>
+        <a href="https://iimadrid.es/herramientas.html" class="link-button">Ver ejemplos</a>
 
-        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });">
-            Volver a la Sección 1
-        </button>
+        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volover al principio </button>
     </section>
 
-<!-- videos de ESO -->
+
+
+    <!-- videos de ESO -->
     <section id="eso1" class="videos">
         <h1>1 ESO</h1>
         <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -181,19 +236,45 @@
         <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volver </button>
     </section>
 
-<!-- videos de bachillerato -->
+    <!-- videos de bachillerato -->
 
-<section id="bach1" class="videos">
-    <h1>1 BACH</h1>
-    <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-</section>
-<section id="bach2" class="videos">
-    <h1>2 BACH</h1>
-    <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-</section>
+    <section id="bach1" class="videos">
+        <h1>1 BACH</h1>
+        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });"> volver </button>
+    </section>
+    <section id="bach2" class="videos">
+        <h1>2 BACH</h1>
+        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });"> volver </button>
+    </section>
 
+    <!-- videos de SELECTIVIDAD -->
+    <section id="selectividad1" class="videos">
+        <h1>Algebra matricial</h1>
+        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });"> volver </button>
+    </section>
+    <section id="selectividad2" class="videos">
+        <h1>Sistemas de ecuaciones lineales</h1>
+        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });"> volver </button>
+    </section>
+    <section id="selectividad3" class="videos">
+        <h1>Geometría lineal</h1>
+        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });"> volver </button>
+    </section>
+    <section id="selectividad4" class="videos">
+        <h1>Análisis</h1>
+        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });"> volver </button>
+    </section>    
+    <section id="selectividad5" class="videos">
+        <h1>Estadística y probabilidad</h1>
+        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });"> volver </button>
+    </section>
 
 </body>
 </html>

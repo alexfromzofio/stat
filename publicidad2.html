@@ -4,118 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="style_publi.css">
     <title>Clases particulares de matemáticas de secundaria</title>
-    <style>
-        /* Estilos generales */
 
-        body {
-            font-size: small;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            height: 100%;
-            scroll-behavior: smooth; /* Desplazamiento suave */
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-            color: white;
-            overflow-x: hidden;
-        }
-        h1 {
-            font-size:xx-large;
-            margin: 0px;
-        }
-
-        /* Sección */
-        section {
-            height: 100vh; /* Cada sección ocupa el 100% del alto de la pantalla */
-            padding-left: 10px;
-            padding-right: 10px;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        /* Secciones con fondos diferentes */
-        #section1 {
-            background: linear-gradient(180deg, #ff3300, #ff2a8a);
-        }
-
-        #section2 {
-            background: linear-gradient(180deg, #ff2a8a, #5c29e8);
-        }
-
-        #section3 {
-            background: linear-gradient(180deg, #5c29e8, #05cf52);
-        }
-
-        #section4 {
-            background: linear-gradient(180deg, #05cf52, #e3e61d);
-        }
-        #section5 {
-            background: linear-gradient(180deg, #000000, #000000);}
-        #section6 {
-            background: linear-gradient(180deg, #000000, #000000);
-        }
-        
-        .videos {
-            background: linear-gradient(180deg, #000000, #717171);
-        }
-
-        /* Estilos de los botones */
-        .scroll-button, .link-button {
-            margin: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-            text-decoration: none; /* Quitar subrayado de los enlaces */
-            color: black;
-            /* display: inline-block; */
-        }
-
-        .scroll-button:hover, .link-button:hover {
-            background-color: rgba(255, 255, 255, 1);
-            transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
-        }
-
-        .link-button {
-            background-color: rgba(255, 255, 255, 0.9); /* Color un poco más opaco para distinguir los enlaces */
-        }
-        p.text_left_align {
-            text-align: left;
-            width: 90%;
-            font-size:16px;
-        }
-        .boton_whatsapp{
-            position:fixed;
-            width:55px;
-            height: 55px;
-            line-height: 55px;
-            top: 30px;
-            right: 30px;
-            background-color:#00ff7b;
-            color: white;
-            border-radius: 50px;
-            text-align: center;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-            z-index: 100; }
-        .boton_whatsapp:hover{
-            text-decoration: none;
-            color: #0dff6e;
-            background-color: #fff;}
-        .icon_whatsapp{
-            font-size:smaller;
-
-        }
-
-        
-
-    </style>
     <a href="https://api.whatsapp.com/send?phone=611264799" class="boton_whatsapp" target="_blank">
         <i class="icon_whatsapp">WhatsApp</i>
     </a>
@@ -130,10 +21,10 @@
         </i></p>
         
         <!-- Enlaces a videos de ESO -->
-        <button class="scroll-button" onclick="document.getElementById('eso1').scrollIntoView({ behavior: 'smooth' });">1 ESO</button>        
-        <button class="scroll-button" onclick="document.getElementById('eso2').scrollIntoView({ behavior: 'smooth' });">2 ESO</button>        
-        <button class="scroll-button" onclick="document.getElementById('eso3').scrollIntoView({ behavior: 'smooth' });">3 ESO</button>        
-        <button class="scroll-button" onclick="document.getElementById('eso4').scrollIntoView({ behavior: 'smooth' });">4 ESO</button>        
+        <a href="publicidad2_videos.html#eso1" class="link-button">1 ESO</a>        
+        <a href="publicidad2_videos.html#eso2" class="link-button">2 ESO</a>        
+        <a href="publicidad2_videos.html#eso3" class="link-button">3 ESO</a>        
+        <a href="publicidad2_videos.html#eso4" class="link-button">4 ESO</a>        
         
         <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });">
             Clases de bachillerato
@@ -145,8 +36,8 @@
         <h1>Bachillerato</h1>
         <p class="text_left_align"><i>Te ofrecemos todo un curso alternativo de 2 bachillerato. Un enfoque totalmente diferente orientado a la comprensión completa de cada tema, capacidad de enfentarse a tus retos de forma autónoma</i></p>
         <!-- Enlaces a videos de bachillerato -->
-        <button class="scroll-button" onclick="document.getElementById('bach1').scrollIntoView({ behavior: 'smooth' });">1 BACH</button>        
-        <button class="scroll-button" onclick="document.getElementById('bach2').scrollIntoView({ behavior: 'smooth' });">2 BACH</button> 
+        <a href="publicidad2_videos.html#bach1" class="link-button">1 BACH</a>        
+        <a href="publicidad2_videos.html#bach2" class="link-button">2 BACH</a> 
 
         <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });">
             Ir a la Selectividad
@@ -159,11 +50,11 @@
         <p class="text_left_align"><i>Preparamos juntos la forma mas eficaz de aprobar este examen y sacar una buena nota. Desarrollamos el calendario de trabajo, horrarios, temario, listado de ejercicios, simulacros de exámenes. Te acompaño hasta el día de examen.</i></p>
 
         <!-- Enlaces a videos de selectividasd -->
-        <button class="scroll-button" onclick="document.getElementById('selectividad1').scrollIntoView({ behavior: 'smooth' });">Algebra matricial</button>        
-        <button class="scroll-button" onclick="document.getElementById('selectividad2').scrollIntoView({ behavior: 'smooth' });">Sistemas de ecuaciones</button>
-        <button class="scroll-button" onclick="document.getElementById('selectividad3').scrollIntoView({ behavior: 'smooth' });">Geometría analítica</button> 
-        <button class="scroll-button" onclick="document.getElementById('selectividad3').scrollIntoView({ behavior: 'smooth' });">Análisis</button> 
-        <button class="scroll-button" onclick="document.getElementById('selectividad4').scrollIntoView({ behavior: 'smooth' });">Probabilidad y estadística</button> 
+        <a href="publicidad2_videos.html#selectividad1" class="link-button">Álgebra matricial</a>        
+        <a href="publicidad2_videos.html#selectividad2" class="link-button">Sistemas de ecuaciones</a> 
+        <a href="publicidad2_videos.html#selectividad3" class="link-button">Geometría analítica</a>        
+        <a href="publicidad2_videos.html#selectividad4" class="link-button">Análisis</a> 
+        <a href="publicidad2_videos.html#selectividad5" class="link-button">Estadística y probabilidad</a>        
 
         <button class="scroll-button" onclick="document.getElementById('section4').scrollIntoView({ behavior: 'smooth' });"> Mas cosillas </button>
     </section>
@@ -219,67 +110,7 @@
 
 
 
-    <!-- videos de ESO -->
-    <section id="eso1" class="videos">
-        <h1>1 ESO</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>
-    <section id="eso2" class="videos">
-        <h1>2 ESO</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>
-    <section id="eso3" class="videos">
-        <h1>3 ESO</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>
-    <section id="eso4" class="videos">
-        <h1>4 ESO</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>
 
-    <!-- videos de bachillerato -->
-
-    <section id="bach1" class="videos">
-        <h1>1 BACH</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>
-    <section id="bach2" class="videos">
-        <h1>2 BACH</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>
-
-    <!-- videos de SELECTIVIDAD -->
-    <section id="selectividad1" class="videos">
-        <h1>Algebra matricial</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>
-    <section id="selectividad2" class="videos">
-        <h1>Sistemas de ecuaciones lineales</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>
-    <section id="selectividad3" class="videos">
-        <h1>Geometría lineal</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>
-    <section id="selectividad4" class="videos">
-        <h1>Análisis</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>    
-    <section id="selectividad5" class="videos">
-        <h1>Estadística y probabilidad</h1>
-        <iframe width="342" height="500" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <button class="scroll-button" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });"> volver </button>
-    </section>
 
 </body>
 </html>

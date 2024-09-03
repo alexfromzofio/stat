@@ -20,7 +20,7 @@
             overflow-x: hidden;
         }
         h1 {
-            font-size:larger;
+            font-size:xx-large;
             margin: 0px;
         }
 
@@ -34,7 +34,6 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            font-size: 1.5em;
             text-align: center;
         }
 
@@ -55,8 +54,11 @@
             background: linear-gradient(180deg, #05cf52, #e3e61d);
         }
         #section5 {
+            background: linear-gradient(180deg, #000000, #000000);}
+        #section6 {
             background: linear-gradient(180deg, #000000, #000000);
         }
+        
         .videos {
             background: linear-gradient(180deg, #000000, #717171);
         }
@@ -86,7 +88,7 @@
         }
         p.text_left_align {
             text-align: left;
-            width: 70%;
+            width: 90%;
             font-size:16px;
         }
         .boton_whatsapp{
@@ -124,7 +126,7 @@
     <section id="section1">
         <h1>CLASES DE ESO
         </h1>
-        <p><i>Deja las reglas y fórmulas, aprende matemáticas de verdad. Resolvemos paso a paso todas tus dudas y aprenderás enfrentarte de forma autónoma a tus retos
+        <p class="text_left_align"><i>Deja las reglas y fórmulas, aprende matemáticas de verdad. Resolvemos paso a paso todas tus dudas y aprenderás enfrentarte de forma autónoma a tus retos
         </i></p>
         
         <!-- Enlaces a videos de ESO -->
@@ -141,7 +143,7 @@
     <!-- Sección 2 BACH -->
     <section id="section2">
         <h1>Bachillerato</h1>
-        <p><i>Te ofrecemos todo un curso alternativo de 2 bachillerato. Un enfoque totalmente diferente orientado a la comprensión completa de cada tema, capacidad de enfentarse a tus retos de forma autónoma</i></p>
+        <p class="text_left_align"><i>Te ofrecemos todo un curso alternativo de 2 bachillerato. Un enfoque totalmente diferente orientado a la comprensión completa de cada tema, capacidad de enfentarse a tus retos de forma autónoma</i></p>
         <!-- Enlaces a videos de bachillerato -->
         <button class="scroll-button" onclick="document.getElementById('bach1').scrollIntoView({ behavior: 'smooth' });">1 BACH</button>        
         <button class="scroll-button" onclick="document.getElementById('bach2').scrollIntoView({ behavior: 'smooth' });">2 BACH</button> 
@@ -154,7 +156,7 @@
     <!-- Sección 3 SELECTIVIDAD -->
     <section id="section3">
         <h1>Selectividad / EVAU</h1>
-        <p><i>Preparamos juntos la forma mas eficaz de aprobar este examen y sacar una buena nota. Desarrollamos el calendario de trabajo, horrarios, temario, listado de ejercicios, simulacros de exámenes. Te acompaño hasta el día de examen.</i></p>
+        <p class="text_left_align"><i>Preparamos juntos la forma mas eficaz de aprobar este examen y sacar una buena nota. Desarrollamos el calendario de trabajo, horrarios, temario, listado de ejercicios, simulacros de exámenes. Te acompaño hasta el día de examen.</i></p>
 
         <!-- Enlaces a videos de selectividasd -->
         <button class="scroll-button" onclick="document.getElementById('selectividad1').scrollIntoView({ behavior: 'smooth' });">Algebra matricial</button>        
@@ -170,7 +172,7 @@
     <!-- Sección 4 mas cosillas -->
     <section id="section4">
         <h1>Más cosillas</h1>
-        <p class="text_left_align"><i>Participa en proyectos científicos de tipo computacional: </i>
+        <p class="text_left_align"><i>Participa libremente en proyectos científicos de tipo computacional: </i>
             <br># introducción a programación en web usando lenguaje python 
             <br># creación de aplicaciones de estadística y inteligencia artificial 
             <br># manipulación de archivos de base de datos usando javascript en el navegador web 
@@ -185,7 +187,7 @@
     </section>
 
 
-    <!-- contacto -->
+    <!-- oferta -->
     <section id="section5">
         <h1>Ofertas y contacto</h1>
         <p class="text_left_align"><i>Clases online: </i>
@@ -200,14 +202,17 @@
             <br># grupo 3 alumnos - 8 € por alumno
             <br># contrata pack de 12 clases mensuales (3 por semana durante 4 semanas) - 156 € (13 € por clase)
         </p>
-        <p class="text_left_align"><i>Para todos los alumnos: </i>
-            <br># todos alumnos pueden participar de forma gratuita en grupos abiertos de desarrollos teóricos de algunos resultados y teoremas matemáticos de forma periódica
-            <br># los alumnos habituales pueden participar de forma gratuita en el desarrollo de proyectos científicos superando un umbral de cantidad de alumnos
+        <button class="scroll-button" onclick="document.getElementById('section6').scrollIntoView({ behavior: 'smooth' });"> Contacto </button>
+
+    </section>
+    <!-- oferta -->
+    <section id="section6">
+        <h1>Contacto</h1>
+        <p class="text_left_align"><i>No dudes en llamar o mándame un whatsapp para aclarar cualqueir cuestión o para asignar una clase de prueba: </i>
+            <br>+34 611 264 799 
+            <br> o utiliza el botón de whatsapp en parte superior
         </p>
 
-
-        <!-- Enlaces atractivos en la sección 3 -->
-        <a href="https://iimadrid.es/herramientas.html" class="link-button">Ver ejemplos</a>
 
         <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volover al principio </button>
     </section>

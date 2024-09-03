@@ -4,23 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Página con Scroll Vertical y Enlaces Atractivos</title>
+    <title>Clases particulares de matemáticas de secundaria</title>
     <style>
         /* Estilos generales */
-        body, html {
+        body {
+            font-size: small;
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
             height: 100%;
             scroll-behavior: smooth; /* Desplazamiento suave */
-        }
-
-        /* Fondo y contenedor */
-        body {
             background: linear-gradient(135deg, #ff7e5f, #feb47b);
             color: white;
             overflow-x: hidden;
         }
+
 
         /* Sección */
         section {
@@ -53,6 +51,9 @@
         #section5 {
             background: linear-gradient(135deg, #000000, #717171);
         }
+        .videos {
+            background: linear-gradient(135deg, #000000, #717171);
+        }
 
         /* Estilos de los botones */
         .scroll-button, .link-button {
@@ -66,7 +67,7 @@
             transition: background-color 0.3s, transform 0.3s;
             text-decoration: none; /* Quitar subrayado de los enlaces */
             color: black;
-            display: inline-block;
+            /* display: inline-block; */
         }
 
         .scroll-button:hover, .link-button:hover {
@@ -84,16 +85,20 @@
 
     <!-- Sección 1 -->
     <section id="section1">
-        <h1>Sección 1</h1>
-        <p>Bienvenido a la primera sección</p>
+        <h1>CLASES DE ESO
+        </h1>
+        <p>En matemáticas - todo tiene un porqué. Vamos olvidarnos por un rato de reglas y fórmulas. En cambio vemos que para aprender matemáticos, a diferencia de otras asignaturas, no tenemos que memorizar nada. Nos basta con un papel y un lapiz para descubrir que todo en esta ciencia tiene lógica simple y todo tiene un porqué.
+
+        </p>
         
         <!-- Enlaces atractivos en la sección 1 -->
-        <a href="#" class="link-button">Enlace 1</a>
-        <a href="#" class="link-button">Enlace 2</a>
-        <a href="#" class="link-button">Enlace 3</a>
+        <button class="scroll-button" onclick="document.getElementById('eso1').scrollIntoView({ behavior: 'smooth' });">1 ESO</button>        
+        <button class="scroll-button" onclick="document.getElementById('eso2').scrollIntoView({ behavior: 'smooth' });">2 ESO</button>        
+        <button class="scroll-button" onclick="document.getElementById('eso3').scrollIntoView({ behavior: 'smooth' });">3 ESO</button>        
+        <button class="scroll-button" onclick="document.getElementById('eso4').scrollIntoView({ behavior: 'smooth' });">4 ESO</button>        
         
         <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });">
-            Ir a la Sección 2
+            Clases de bachillerato
         </button>
     </section>
 
@@ -149,16 +154,25 @@
     </section>
 
 
-    <section id="section5">
-        <h1>Sección 5</h1>
-        <p>ver video</p>
+    <section id="eso1" class="videos">
+        <h1>1 ESO</h1>
         <iframe width="342" height="607" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <!-- Enlaces atractivos en la sección 1 -->
-        
-        <button class="scroll-button" onclick="document.getElementById('section2').scrollIntoView({ behavior: 'smooth' });">
-            volver
-        </button>
+        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volver </button>
     </section>
-
+    <section id="eso2" class="videos">
+        <h1>2 ESO</h1>
+        <iframe width="342" height="607" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volver </button>
+    </section>
+    <section id="eso3" class="videos">
+        <h1>3 ESO</h1>
+        <iframe width="342" height="607" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volver </button>
+    </section>
+    <section id="eso4" class="videos">
+        <h1>4 ESO</h1>
+        <iframe width="342" height="607" src="https://www.youtube.com/embed/UylpzgUpNpI" title="Microlight flying" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="scroll-button" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"> volver </button>
+    </section>
 </body>
 </html>

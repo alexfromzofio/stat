@@ -1,0 +1,104 @@
+body {
+    font-size: small;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    height: 100%;
+    scroll-behavior: smooth; /* Desplazamiento suave */
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: white;
+    overflow-x: hidden;
+}
+h1 {
+    font-size:xx-large;
+    margin: 0px;
+}
+
+/* Sección */
+section {
+    height: 100vh; /* Cada sección ocupa el 100% del alto de la pantalla */
+    padding-left: 10px;
+    padding-right: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Secciones con fondos diferentes */
+#section1 {
+    background: linear-gradient(180deg, #ff3300, #ff2a8a);
+}
+
+#section2 {
+    background: linear-gradient(180deg, #ff2a8a, #5c29e8);
+}
+
+#section3 {
+    background: linear-gradient(180deg, #5c29e8, #05cf52);
+}
+
+#section4 {
+    background: linear-gradient(180deg, #05cf52, #e3e61d);
+}
+#section5 {
+    background: linear-gradient(180deg, #000000, #000000);}
+#section6 {
+    background: linear-gradient(180deg, #000000, #000000);
+}
+
+.videos {
+    background: linear-gradient(180deg, #000000, #717171);
+}
+
+/* Estilos de los botones */
+.scroll-button, .link-button {
+    margin: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    text-decoration: none; /* Quitar subrayado de los enlaces */
+    color: black;
+    /* display: inline-block; */
+}
+
+.scroll-button:hover, .link-button:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
+}
+
+.link-button {
+    background-color: rgba(255, 255, 255, 0.9); /* Color un poco más opaco para distinguir los enlaces */
+}
+p.text_left_align {
+    text-align: left;
+    width: 90%;
+    font-size:16px;
+}
+.boton_whatsapp{
+    position:fixed;
+    width:55px;
+    height: 55px;
+    line-height: 55px;
+    top: 30px;
+    right: 30px;
+    background-color:#00ff7b;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    z-index: 100; }
+.boton_whatsapp:hover{
+    text-decoration: none;
+    color: #0dff6e;
+    background-color: #fff;}
+.icon_whatsapp{
+    font-size:smaller;
+
+}

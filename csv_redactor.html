@@ -18,72 +18,117 @@
   <!-- pre es para mostrar texto no preformateado -->
   <div class = "capa1">
     <pre id="contenido-archivo"></pre>
+    <pre id="contenido-archivo1"></pre>
+    <pre id="contenido-archivo2"></pre>
+    <pre id="contenido-archivo3"></pre>
+    <pre id="contenido-archivo4"></pre>
+    <pre id="contenido-archivo5"></pre>
+
+
   </div>
-  <p>Elige qué fila quieres exportar a un archivo csv</p>
-  <input type="number" class="tentacles" id="tentacles" name="tentacles" min="1" style="width: 30px" value="0" >
+  <div class "operador1">
+    <p>
+      
+    <input type="radio" id="bor_fil" name="rbox" value="1" checked> fila 
+    <input type="radio" id="bor_col" name="rbox" value="2"> columna 
+    <input type="number" class="tentacles" id="tentacles1" name="tentacles" min="0" style="width: 30px" value="0" >
+    <button id="borrar" class="boton1" > borrar </button></p>
+
+
+  </div>
+
   <button id="exportar" class="boton1" > Exportar </button>
   <script>
-
-
-
 
     /**
     * Importar y operar con .csv
     **/
 
-    // aparte de guardar data voy a intentar guardar arrays 
-    function guardarlistas(data) {
-        
-      todas_filas = data 
+    // funcion para guardar datos en forma de matriz
+    // argumento data (texto que se recibe de csv)
+    // salida matriz 
+    function guardarmatriz(data) {
+      // separamos por fila
       todas_filas_separadas = data.split(/\r?\n|\r/);
-
       // longitud (cantidad de filas)
       len = todas_filas_separadas.length
-
-      // para conocer tipo
-      // r = typeof todas_filas_separadas[0]
-
       // primera fila
       fila_0 = todas_filas_separadas[0]
       // separando por coma
       head = fila_0.split(",");
       // longitud de fila (cantidad de columnas)
       wid = head.length
-
-      // creamos array completo para trabajar comodamente
-      a = [];
+      // creamos matriz completa para trabajar comodamente
+      m = [];
       for (let step = 0; step < len; step++) {
         filas_split = todas_filas_separadas[step].split(",");
-        a.push(filas_split);
+        m.push(filas_split);
       }
 
+      
 
-      //representación de primera fila solo (head)
-      document.querySelector('#contenido-archivo').innerHTML = a[0];
+      //representación de primeras filas
+      document.querySelector('#contenido-archivo').innerHTML = m[0];
+      k = 3
+      if (len<3){
+        k = len;
+        }
+      for (let l = 1; l < k; l++) {
+        l_string = "#contenido-archivo" + l.toString()
+        document.querySelector(l_string).innerHTML = m[l];
+      }
+      document.querySelector('#contenido-archivo4').innerHTML = "...";
+      document.querySelector('#contenido-archivo5').innerHTML = "total " +len + " filas " + wid + " columnas";
+    }  
+    // operadores
+
+
+    function borrar_fila (matriz,pos) {
+      m.splice(pos,1);
+
+    };
+    function borrar_columna (matriz,pos) {
+      let x = matriz[0].length
+      let y = matriz.length
+      for(let i = 0; i< y; i++){
+        matriz[i].splice(pos,1);
+      }
+    };
+    document.querySelector('#borrar').onclick = function () {
+      num = document.getElementById("tentacles1").value
+      
+      if (document.getElementById("bor_fil").checked){
+        borrar_fila(m,num);
 
       }
+      if (document.getElementById("bor_col").checked){
+        borrar_columna(m, num);
+      }
+    };
 
 
-
-
+    // lectura de listener (lee el archivo recibido)
     function leerArchivo(evt) {
       const file = evt.target.files[0];
       const reader = new FileReader();
       reader.onload = (e) => {
       // Cuando el archivo se terminó de cargar
 
-      // Leemos el contenido del archivo seleccionado (no exportr, asignar variable)
-      guardarlistas(e.target.result)
+      // guardamos el archivo como matriz. Es una variable global
+      guardarmatriz(e.target.result)
       };
       reader.readAsText(file);
-    }
+    };
 
-
+    // parte principal
     // funciones listeners para recibir archivos desde el navegador
-
     document.querySelector('#archivo1')
         // change - si hay cambios, ejecutar función leerArchivo 
+        // leerArchivo es una función
         .addEventListener('change', leerArchivo, false);
+
+
+
 
     /**
     * Exportar
@@ -101,11 +146,29 @@
     };
 
     document.querySelector('#exportar').onclick = function () {
-      num_fila = document.getElementById("tentacles").value
-      data = a[num_fila]
+
+      data = m
+      let len = m.length
+      
+      /**
+      // darle formato de csv (esto desgraciadamente crea última fila vacía)
+      csvContent = "",{type: 'text/csv;charset=utf-8;'};
+      data.forEach(function(rowArray) {
+        let row = rowArray.join(",");
+        csvContent += row + "\r\n";
+      });
+      **/
+      // análogo del anterior pero quitando la última fila vacía
+      csvContent = "",{type: 'text/csv;charset=utf-8;'};
+      for (let step = 0; step < len-1; step++) {
+        let row = data[step];
+        csvContent += row + "\r\n";
+      }
+      csvContent += data[len-1];
+
       
       const nombreArchivo = 'ejemplo.csv'
-      exportar(data, nombreArchivo);
+      exportar(csvContent, nombreArchivo);
     }
 
   </script>

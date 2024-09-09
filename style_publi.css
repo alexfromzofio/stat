@@ -51,6 +51,15 @@ section {
 
 .videos {
     background: linear-gradient(180deg, #000000, #717171);
+    height: 100vh; /* Cada sección ocupa el 100% del alto de la pantalla */
+    padding-left: 10px;
+    padding-right: 10px;
+
+    display: flex;
+    justify-content: start;
+    align-items:center;
+    flex-direction: column;
+    text-align: center;
 }
 
 /* Estilos de los botones */

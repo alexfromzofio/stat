@@ -66,6 +66,7 @@ section {
 /* para iframe de youtube */
 
 iframe{
+    width: 100%;
     max-width: 560px;
 }
 

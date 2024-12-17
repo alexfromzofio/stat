@@ -7,8 +7,7 @@
 
     <!-- Cargar A-Frame -->
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <!-- Cargar Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
 </head>
 <body>
 
@@ -38,15 +37,15 @@
         const ejes = new THREE.Group();
 
         // Dibujar eje X en rojo
-        const ejeX = createLine(new THREE.Vector3(0, 0, 0), new THREE.Vector3(5, 0, 0), 0xff0000);
+        const ejeX = createLine(new THREE.Vector3(0, 0, 0), new THREE.Vector3(1000, 0, 0), 0xff0000);
         ejes.add(ejeX);
 
         // Dibujar eje Y en verde
-        const ejeY = createLine(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 5, 0), 0x00ff00);
+        const ejeY = createLine(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 1000, 0), 0x00ff00);
         ejes.add(ejeY);
 
         // Dibujar eje Z en azul
-        const ejeZ = createLine(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 5), 0x0000ff);
+        const ejeZ = createLine(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 1000), 0x0000ff);
         ejes.add(ejeZ);
 
         // Añadir todo a la escena principal

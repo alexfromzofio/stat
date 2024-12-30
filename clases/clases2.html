@@ -3,130 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script type="text/javascript" src="script_0.js"></script> -->
+
+    <!-- <link rel="stylesheet" href="style_0.css"> -->
+    <link rel="stylesheet" media="screen and (min-width: 1000px)" href="pc.css" />
+    <link rel="stylesheet" media="screen and (max-width: 1000px)" href="phone.css" />
+
     <title>Página de Clases Particulares</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            margin: 0;
-            padding: 0;
-            font-size: 24px;
-        }
 
-        a{
-            color: #006400;
-        }
-        .container {
-            display: grid;
-            grid-template-areas: 
-                "clases talleres"
-                "clases curiosidades"
-                "clases trucos";
-
-            grid-template-columns: repeat(2, minmax(200px, 1fr)); /* Dos columnas flexibles */
-
-            gap: 10px;
-            box-sizing: border-box;
-            padding: 10px;
-        }
-        header {
-            background-color: #006400;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 1.5em;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .contact-info {
-            background-color: #eafaea;
-            color: #006400;
-            text-align: center;
-            padding: 10px;
-            font-size: 1em;
-        }
-        .block {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            
-            
-            display: flex;
-            flex-direction: column;
-
-
-            width: 95%;           /* Ocupará todo el ancho de su celda */
-            min-width: 200px;      /* Nunca será más pequeño que 200px */
-
-            height: 150px;         /* Altura fija */
-            overflow: hidden;      /* Oculta contenido excedente */
-        }
-
-        .block p{
-            width: 100%;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
-            overflow: hidden;
-        }
-        
-        .block h2 {
-            font-size: 18px;
-            margin-bottom: 5px;
-            color: #006400;
-            background-color: white;
-            padding: 0px;
-        }
-
-        .block h3 {
-            font-size: 14px;
-            margin-bottom: 0px;
-            margin-top: 0px;
-            color: #000000;
-            background-color: white;
-            padding:5px;
-        }
-        .content-container {
-            margin-top: 5px;
-            flex-grow: 1;
-            display: flex;
-            align-items: top;
-            justify-content: center;
-            height: 100%;
-        }
-        .content {
-            display: none;
-        }
-        .content.active {
-            display: block;
-        }
-        .block.clases {
-            grid-area: clases;
-            height: 100%;
-
-        }
-        .block.talleres {
-            grid-area: talleres;
-            
-
-        }
-        .block.curiosidades {
-            grid-area: curiosidades;
-
-        }
-        .block.trucos {
-            grid-area: trucos;
-        }
-
-
-
-    </style>
 </head>
 <body>
     <header>
@@ -140,7 +24,10 @@
         <div class="block clases">
             <h2>Clases Particulares</h2>
             <div class="content-container">
-                <div class="content active">Preparación para exámenes en Guadalajara.</div>
+                <div class="content active"><h3>Preparación para exámenes en Guadalajara.</h3>
+                <p id="first">Lorem ipsum dolor sit amet consectetur adipiscing elit senectus aliquet, ac nostra dui magna primis vitae eros aenean nascetur, tempor mauris montes cum cubilia tempus diam inceptos. Imperdiet diam ultricies platea velit id, gravida faucibus scelerisque porttitor, pharetra ullamcorper suscipit eget. Varius hendrerit vehicula aliquam nunc euismod donec lectus non, suspendisse augue dis cras sem natoque et.
+
+                    Suspendisse praesent molestie odio sed ultrices aptent cubilia, nibh ad etiam quam himenaeos ac, varius nulla dignissim risus magna tristique. Dui placerat penatibus orci cubilia nunc tristique vel potenti eleifend, augue nec faucibus a scelerisque sem integer non, auctor porttitor platea vestibulum ultricies aliquet sed tortor. Vel morbi a id convallis pharetra ullamcorper egestas fringilla accumsan, pellentesque duis hac aptent rhoncus pulvinar proin augue torquent, natoque dui nulla primis mus conubia porta quisque.</p></div>
                 <div class="content">ESO, Bachillerato y EVAU/EBAU.</div>
                 <div class="content">Exámenes Simulados: Gestión de tiempo y estrategias.</div>
                 <div class="content">Motivación: Alcanza tus metas con nuestras clases.</div>
@@ -179,7 +66,7 @@
         <div class="block curiosidades">
             <h2>Desarrollos teóricos y Curiosidades</h2>
             <div class="content-container">
-                <div class="content active">
+                <div class="content active" id="content">
                     <h3>círculo o ovalo, donde cabe mas? parte 1: rectángulos</h3>
                     <p>Trabajando en un concierto vendiendo cerveza hacíamos unas pequeñas trampas al llenar el baso plástico con la bebida. Para Llenarlo con menos cantidad a la hora de coger el baso lo aplastábamos un poco y de esta forma se reducía el volumen total. Un truco muy simple. 
 
@@ -188,7 +75,7 @@
                         Al parecer esto ocurre con todas las figuras al modificar su simetría. Caso mas simple es el cuadrado:
                         ejemplo1  cuadrado: </p>
                 </div>
-                <div class="content">
+                <div class="content" id="content">
                     <h3>ANTIFÓRMULAS : ANÁLISIS (parte 1)</h3>
                     <p>Curso alternativo de 2 de bachillerato "EL ANTIFÓRMULAS". Vamos a desarrollar resultados teóricos de este curso evitando lo máximo posible el uso de fórmulas. Es decir, obteniendo mismos resultados de forma gráfica, lógica o simplemente intuitiva. 
                         Derivadas PARTE 1: definición:
@@ -261,29 +148,6 @@
         </div>
     </div>
 
-    <script>
-        function rotateContent(blockClass, interval) {
-            const block = document.querySelector(`.${blockClass} .content-container`);
-            const contents = block.querySelectorAll('.content');
-            let index = 0;
-
-            setInterval(() => {
-                contents[index].classList.remove('active');
-                index = (index + 1) % contents.length;
-                contents[index].classList.add('active');
-            }, interval);
-        }
-        //min_al = 5000;
-        //max_al = 11000;
-        //let valor1 = Math.trunc(Math.random() * (max_al - min_al) + min_al);
-        //let valor2 = Math.trunc(Math.random() * (max_al - min_al) + min_al);
-        //let valor3 = Math.trunc(Math.random() * (max_al - min_al) + min_al);
-        //let valor4 = Math.trunc(Math.random() * (max_al - min_al) + min_al);
-
-        rotateContent('clases', 11000);
-        rotateContent('talleres', 8000);
-        rotateContent('curiosidades', 7000);
-        rotateContent('trucos', 6000);
-    </script>
+<script type="text/javascript" src="script_0.js"></script>
 </body>
 </html>

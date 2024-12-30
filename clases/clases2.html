@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Clases Particulares</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+        }
+
+        a{
+            color: #006400;
+        }
+        .container {
+            display: grid;
+            grid-template-areas: 
+                "clases talleres"
+                "clases curiosidades"
+                "clases trucos";
+
+            grid-template-columns: repeat(2, minmax(200px, 1fr)); /* Dos columnas flexibles */
+
+            gap: 10px;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+        header {
+            background-color: #006400;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 1.5em;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .contact-info {
+            background-color: #eafaea;
+            color: #006400;
+            text-align: center;
+            padding: 10px;
+            font-size: 1em;
+        }
+        .block {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            
+            
+            display: flex;
+            flex-direction: column;
+
+
+            width: 95%;           /* Ocupará todo el ancho de su celda */
+            min-width: 200px;      /* Nunca será más pequeño que 200px */
+
+            height: 150px;         /* Altura fija */
+            overflow: hidden;      /* Oculta contenido excedente */
+        }
+
+        .block p{
+            width: 100%;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+        }
+        
+        .block h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #006400;
+            background-color: white;
+            padding: 0px;
+        }
+
+        .block h3 {
+            font-size: 14px;
+            margin-bottom: 0px;
+            margin-top: 0px;
+            color: #000000;
+            background-color: white;
+            padding:5px;
+        }
+        .content-container {
+            margin-top: 5px;
+            flex-grow: 1;
+            display: flex;
+            align-items: top;
+            justify-content: center;
+            height: 100%;
+        }
+        .content {
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        .block.clases {
+            grid-area: clases;
+            height: 100%;
+
+        }
+        .block.talleres {
+            grid-area: talleres;
+            
+
+        }
+        .block.curiosidades {
+            grid-area: curiosidades;
+
+        }
+        .block.trucos {
+            grid-area: trucos;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GUADALAMATICA</h1>
+        Clases Particulares de Matemáticas en Guadalajara
+    </header>
+    <div class="contact-info">
+        Contacto Álex:  <a href="https://wa.me/34611264799">whatsapp</a> / Tlfn 611264799
+    </div>
+    <div class="container">
+        <div class="block clases">
+            <h2>Clases Particulares</h2>
+            <div class="content-container">
+                <div class="content active">Preparación para exámenes en Guadalajara.</div>
+                <div class="content">ESO, Bachillerato y EVAU/EBAU.</div>
+                <div class="content">Exámenes Simulados: Gestión de tiempo y estrategias.</div>
+                <div class="content">Motivación: Alcanza tus metas con nuestras clases.</div>
+            </div>
+        </div>
+        <div class="block talleres">
+            <h2>Talleres de proyectos libres</h2>
+            <div class="content-container">
+                <div class="content active">
+                    <h3>VR</h3>
+                    <p>¿Es complejo crear contenido para realidad virtual? Para nada. Únete a nuestro proyecto de libre acceso para redactar contenido de 
+                        realidad virtual y te ayudamos a introducirse en el mundo VR haciendo ejemplos prácticos y sencillos relacionados con geometría 
+                        analítica o de temáticas de libre elección. 
+                    </p>
+                </div>                  
+                <div class="content">
+                    <h3>impresión 3D</h3>
+                    <p>Hoy en día ya no es una tecnología avanzada y de acceso popular. Pero has planteado alguna vez en poder crear por tu cuenta
+                        objetos personalizados? En este taller te enseñamos a crear objetos 3D y a imprimirlos en una impresora 3D. Además todo lo que 
+                        hagamos se apoya en firmes principios matemáticos. Empezamos con ejemplo de figura de corazón donde vas a entender el uso práctico de polinomios
+                        repasando ejercicios de bachillerato. Y para terminar vemos como se puede programar figuras complejas con Python.
+                    </p>
+                </div>                 
+                <div class="content">
+                    <h3>introducción A PYTHON</h3>
+                    <p>Vamos a crear aplicaciones locales para resolver problemas matemáticos en cuestión de segundos. Terminamos con un ejemplo de aplicación compleja</p>
+                </div>                  
+                <div class="content">
+                    <h3>IA, Estadística, Big data</h3>
+                    <p>Todo esto, como siempre, vamos a poder desarrollar usando programación en WEB. Creamos aplicaciones de análisis de datos y vamos a poder
+                        compartirlas con el mundo. Predecimos precios, costes, ganancias de un negocio y mucho más. 
+                    </p>
+                </div>              
+            </div>
+        </div>
+        <div class="block curiosidades">
+            <h2>Desarrollos teóricos y Curiosidades</h2>
+            <div class="content-container">
+                <div class="content active">
+                    <h3>círculo o ovalo, donde cabe mas? parte 1: rectángulos</h3>
+                    <p>Trabajando en un concierto vendiendo cerveza hacíamos unas pequeñas trampas al llenar el baso plástico con la bebida. Para Llenarlo con menos cantidad a la hora de coger el baso lo aplastábamos un poco y de esta forma se reducía el volumen total. Un truco muy simple. 
+
+                        Pero si lo piensas...
+                        Al aplastar el vaso no cambia la superficie del cilindro ni tampoco longitud de circunferencia de la base. Estos valores son constantes. ¿Porque cambia el volumen?
+                        Al parecer esto ocurre con todas las figuras al modificar su simetría. Caso mas simple es el cuadrado:
+                        ejemplo1  cuadrado: </p>
+                </div>
+                <div class="content">
+                    <h3>ANTIFÓRMULAS : ANÁLISIS (parte 1)</h3>
+                    <p>Curso alternativo de 2 de bachillerato "EL ANTIFÓRMULAS". Vamos a desarrollar resultados teóricos de este curso evitando lo máximo posible el uso de fórmulas. Es decir, obteniendo mismos resultados de forma gráfica, lógica o simplemente intuitiva. 
+                        Derivadas PARTE 1: definición:
+                        Con derivadas medimos el comportamiento de una función en un punto. Para poder evaluar el crecimiento, decrecimiento, "potencialidad" de estos cambios de una función. 
+                        Podemos ver como ha variado una función en un intervalo asociando una recta a extremos de este intervalo. El dato importante es la pendiente de esta recta ya que indica como de pronunciado ha sido este crecimiento o decrecimiento. La pendiente se puede calcular muy fácil en este caso simplemente dividiendo variación de y entre variación en x.</p>
+                </div>                
+                <div class="content">
+                    <h3>número PI (método Monte Carlo) PARTE 1. EXPERIMENTO</h3>
+                    <p>
+                        Muchos, incluyendo a mí, han despreciado estadística todo este tiempo hasta que ha llegado el tema de IA que en mayoría de casos utiliza herramientas de estadística. Esto ha traído un cambio radical al mundo. Antes, para calcular los recorridos y trayectos más cortos deberíamos inventar algoritmos muy complejos y poco claros tipo SIMPLEX u otros. Ahora google maps utiliza datos que provienen de los propios conductores para hacer comparaciones e inferencias tan precisas que desaparece necesidad de aplicar algoritmos de tipo determinista que poco se ajustan a problemas de vida real.
+                        Un ejemplo simple. Para calcular el número PI lo primero que se ocurre es coger una cuerda, hacer con ella una circunferencia, en el suelo, medir el radio y luego dividir longitud de la cuerda entre longitud del radio. Sabiendo que longitud de la circunferencia es 2PIr al dividir entre r obtenemos el doble del número PI. No nos va a dar valor exacto porque no podemos crear figuras perfectas de esta forma.
+                        Para aproximarnos mucho mejor podemos usar algoritmo de Pitágoras pero hoy vamos hacerlo de otra forma.
+                        Sabemos que área de una circunferencia es PIr^2. Vamos a dibujar una circunferencia inscrita en un cuadrado.</p>
+                </div>                 
+                <div class="content">
+                    <h3>1 es igual a 0.9 periódico. demostración alternativa por reducción al absurdo</h3>
+                    <p>Vamos a probar este resultado pero de una forma alternativa. Este método me ha surgido despues de una discución en un grupo de "ciencias" en el que una persona afirmaba que esto no es así. Y para argumentar daba un número entre 0,9período y 1 que es una fracción de la distancia (1 - 0,9período) que es en sí una falsa demostración (precisamente queremos probar que esta distancia no es nula) </p>
+                </div>             
+            </div>
+        </div>
+        <div class="block trucos">
+            <h2>Consejos y Trucos</h2>
+            <div class="content-container">
+                <div class="content active">
+                    <h3>¿Cómo perder el miedo a los exámenes?</h3>
+                    <p>¿Sientes pánico al enfrentarte a un examen? No estás solo, muchos alumnos sufren de "testofobia". Pero ¡tranquilo! Nadie muere por suspender.
+
+                    Nuestro objetivo es cambiar tu perspectiva:
+
+                    Practicaremos simulacros de exámenes para enfrentarte a distintas dificultades.
+                    Celebramos tus victorias y aprendemos de los errores sin miedo.
+                    Reforzamos tu confianza enfrentando exámenes hasta que se vuelvan algo normal.
+                    ¡Prepárate para superar el miedo y dominar cualquier examen!</p>                
+                </div>
+                <div class="content">
+                    <h3>¿Te quedas en blanco durante los exámenes?</h3>
+                    <p>Estudias bien, pero en el momento clave, tu mente se queda en blanco. No te preocupes, no estás solo, y este problema tiene solución.
+                    
+                    Trabajaremos con técnicas para "romper el hielo" en el examen:
+                    
+                    Comienza con el ejercicio más fácil. Resolverlo te dará confianza para seguir.
+                    Si hay muchas fórmulas, apunta las que recuerdas. Por ejemplo: la fórmula cuadrática, el teorema de Pitágoras, o la distancia entre puntos.
+                    En geometría, dibuja esquemas; en probabilidad, crea diagramas de Venn.
+                    ¡Lo importante es empezar! Al romper el bloqueo inicial, las ideas fluirán más fácilmente.</p>
+                </div>
+                <div class="content">
+                    <h3>¿Saturado y sin tiempo para estudiar?</h3>
+                    <p>Es normal sentirse abrumado con tantas asignaturas y contenidos. Pero, ¿sabes qué falta muchas veces? ¡Una buena organización del tiempo!
+                    
+                    Crea un calendario realista: Divide el tiempo entre asignaturas, pero deja espacio para descansar.
+                    Evita el estrés innecesario: No te pongas metas imposibles; es mejor avanzar poco a poco que rendirse.
+                    Prioriza cuando el tiempo es limitado: Si el examen está cerca y todo parece complicado, enfócate en lo más importante.
+                    Recuerda: planificar bien puede marcar la diferencia. ¡Tú puedes con esto!</p>
+                </div>
+                <div class="content">
+                    <h3>¿No te gustan las matemáticas? ¡Hay solución!</h3>
+                    <p>Muchos estudiantes no disfrutan las matemáticas porque no logran resolver los ejercicios. Es normal: a nadie le gusta lo que no entiende. 
+                        Pero no te preocupes, ¡esto se puede cambiar!
+                        El truco está en empezar poco a poco, con ejercicios simples pero interesantes. Cuando te sientes capaz de resolver algo, aumenta 
+                        tu confianza y empiezas a disfrutarlo.
+                        Las matemáticas tienen mucho más que ofrecer que cálculos: problemas lógicos, gráficos, geometría, azar, juegos... Encontraremos 
+                    j   untos el tema que más te interese y empezaremos desde ahí.</p>
+                </div>
+                <div class="content">
+                    <h3>¡Las matemáticas no sirven para nada!"</h3>
+                    <p>Muchos estudiantes piensan así, pero la realidad es diferente. Aunque hoy en día las herramientas tecnológicas hacen muchos cálculos por nosotros, también surgen nuevas tecnologías como la inteligencia artificial, la realidad virtual y los ordenadores cuánticos, que dependen de las matemáticas.
+                    No necesitas ser un genio para aprender matemáticas. Con práctica y curiosidad, cualquiera puede usarlas para alcanzar sus objetivos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function rotateContent(blockClass, interval) {
+            const block = document.querySelector(`.${blockClass} .content-container`);
+            const contents = block.querySelectorAll('.content');
+            let index = 0;
+
+            setInterval(() => {
+                contents[index].classList.remove('active');
+                index = (index + 1) % contents.length;
+                contents[index].classList.add('active');
+            }, interval);
+        }
+        //min_al = 5000;
+        //max_al = 11000;
+        //let valor1 = Math.trunc(Math.random() * (max_al - min_al) + min_al);
+        //let valor2 = Math.trunc(Math.random() * (max_al - min_al) + min_al);
+        //let valor3 = Math.trunc(Math.random() * (max_al - min_al) + min_al);
+        //let valor4 = Math.trunc(Math.random() * (max_al - min_al) + min_al);
+
+        rotateContent('clases', 11000);
+        rotateContent('talleres', 8000);
+        rotateContent('curiosidades', 7000);
+        rotateContent('trucos', 6000);
+    </script>
+</body>
+</html>

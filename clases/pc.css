@@ -93,6 +93,17 @@ header {
     background-color: white;
     padding:5px;
 }
+
+
+.block a {
+    color: #000000;
+    text-decoration: none;
+
+}
+
+.block a:hover {
+    color: #006400;
+}
 .content-container {
     margin-top: 5px;
     flex-grow: 1;

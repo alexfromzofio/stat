@@ -16,7 +16,7 @@ function rotateContent(blockClass, interval) {
 //let valor3 = Math.trunc(Math.random() * (max_al - min_al) + min_al);
 //let valor4 = Math.trunc(Math.random() * (max_al - min_al) + min_al);
 
-rotateContent('clases', 11000);
-rotateContent('talleres', 8000);
-rotateContent('curiosidades', 7000);
-rotateContent('trucos', 6000);
+rotateContent('clases', 13000);
+rotateContent('talleres', 10000);
+rotateContent('curiosidades', 9000);
+rotateContent('trucos', 8000);

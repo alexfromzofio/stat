@@ -60,7 +60,7 @@ header {
     -webkit-line-clamp: 3;
     overflow: hidden;
 }
-
+/*para el primer bloque solo*/
 #first{
     width: 100%;
     display: -webkit-box;
@@ -83,6 +83,16 @@ header {
     color: #000000;
     background-color: white;
     padding:5px;
+}
+
+.block a {
+    color: #000000;
+    text-decoration: none;
+
+}
+
+.block a:hover {
+    color: #006400;
 }
 .content-container {
     margin-top: 5px;
